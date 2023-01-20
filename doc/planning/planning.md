@@ -48,6 +48,22 @@ Project planning outline.
 #### Outline
 ![TODO](https://img.shields.io/badge/TODO-yellow)
 
+Travelling budget planner, making it simple.
+
+##Outline 
+A budget planner for travelling.
+
+##Features
+
+Budget planning tool
+Currency converter
+Weather forecast for destination
+Skyscanner
+Simplicity in design, increasing accesibility
+
+
+
+
 ## Frameworks
 ### Full Stack
 - [Django](https://www.djangoproject.com/)
