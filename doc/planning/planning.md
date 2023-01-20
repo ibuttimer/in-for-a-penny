@@ -74,6 +74,13 @@ Quick comparison summary based on
 | Dev speed    |                 1                 |      2       |                1?                 |
 | Extra points |              &cross;              |   &check;    |              &check;              |
 
+## Financial API
+There are any number: 
+- Exchange rates
+  - [fixer](https://fixer.io/) (mentioned in Intro Webinar)
+- Stocks
+  - [YahooFinance Stocks](https://rapidapi.com/integraatio/api/yahoofinance-stocks1/) (have used in the past for historical stock prices)
+
 ## Database
 - [ElephantSQL](https://www.elephantsql.com/)
 
