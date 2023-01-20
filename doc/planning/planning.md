@@ -74,5 +74,13 @@ Quick comparison summary based on
 | Dev speed    |                 1                 |      2       |                1?                 |
 | Extra points |              &cross;              |   &check;    |              &check;              |
 
+## Database
+- [ElephantSQL](https://www.elephantsql.com/)
+
+## Deployment
+Options are
+- [Heroku](https://www.heroku.com/)
+- [render](https://render.com/)
+
 
 
