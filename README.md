@@ -2,7 +2,7 @@
 
 ## Team Name: InForAPenny
 
-[Link to Deployed Project](<<add_deployed_link_to_project_here>>)
+[InForAPenny](https://in-for-a-penny.herokuapp.com/)
 
 ## Contents(#contents)
 

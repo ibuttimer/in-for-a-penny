@@ -183,3 +183,4 @@ cloudinary_python.txt
 ### VS Code ###
 *.code-workspace
 
+/doc/dev/
