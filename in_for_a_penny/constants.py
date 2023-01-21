@@ -28,4 +28,18 @@ LOGIN_ROUTE_NAME = "account_login"
 LOGOUT_ROUTE_NAME = "account_logout"
 REGISTER_ROUTE_NAME = "account_signup"
 
+# Misc routes related
+ABOUT_URL = "about/"
+LINKS_URL = "links/"
+
+ABOUT_ROUTE_NAME = "about"
+LINKS_ROUTE_NAME = "links"
+
 MIN_PASSWORD_LEN = 8
+
+# Request methods
+GET = 'GET'
+PATCH = 'PATCH'
+POST = 'POST'
+DELETE = 'DELETE'
+
