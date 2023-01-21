@@ -1,0 +1,30 @@
+# pylint: skip-file
+# .env file
+
+# port application is served on
+PORT=8000
+
+# A boolean that turns on/off debug mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable
+# https://docs.djangoproject.com/en/4.1/ref/settings/#debug
+DEBUG=on
+
+# A boolean that turns on/off development mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable
+DEVELOPMENT=true
+
+# Secret key for a particular Django installation
+# https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-SECRET_KEY
+SECRET_KEY='this-is-a-very-secret-key'
+
+# The default database url
+# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+DATABASE_URL=postgresql://username:password@localhost/in-for-a-penny
+
+# The database url for the remote database (only required for configuration purposes)
+REMOTE_DATABASE_URL=postgres://abcdefghijk:verylongstringofalphanumericchars@ec2-somewhere.datacentre.compute.amazonaws.com:5432/lmnopqrstuv
+
+# Id (primary key) of site in the 'django_site' table of the database
+SITE_ID=2
+
+# hostname of application on Heroku; e.g. in-for-a-penny.herokuapp.com/
+# https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts
+#HEROKU_HOSTNAME = <app>.herokuapp.com

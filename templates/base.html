@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load i18n %}
+{% load static %}
+{% load cloudinary_static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css">
+
+    {% block extra_css %}
+    {% endblock extra_css %}
+
+    {% block extra_js_head %}
+    {% endblock extra_js_head %}
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+    <title>{% block head_title %}{% endblock head_title %}</title>
+    {% block extra_head %}
+    {% endblock extra_head %}
+
+    {# in order to use cloudinary for background images style must be in the html file #}
+</head>
+
+<body class="">
+    <header class="">
+        <nav class="">
+        </nav>
+    </header>
+
+    <main class="">
+        <div class="container">
+            {% block content %}
+                {# content goes here #}
+            {% endblock content %}
+        </div>
+    </main>
+
+    {# footer #}
+    <footer class="">
+    </footer>
+
+    {% block extra_js_body %}
+    {% endblock extra_js_body %}
+</body>
+</html>

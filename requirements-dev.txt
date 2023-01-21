@@ -1,0 +1,7 @@
+# Development-specific requirements
+
+# import production requirements
+-r requirements.txt
+
+# development requirements
+pycodestyle==2.10.0

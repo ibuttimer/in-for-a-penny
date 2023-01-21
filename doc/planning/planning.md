@@ -46,21 +46,16 @@ Project planning outline.
 
 ### Idea 2
 #### Outline
-![TODO](https://img.shields.io/badge/TODO-yellow)
-
 Travelling budget planner, making it simple.
 
-##Outline 
 A budget planner for travelling.
 
-##Features
-
-Budget planning tool
-Currency converter
-Weather forecast for destination
-Skyscanner
-Simplicity in design, increasing accesibility
-
+#### Features
+- Budget planning tool
+- Currency converter
+- Weather forecast for destination
+- Skyscanner
+- Simplicity in design, increasing accessibility
 
 
 
