@@ -16,8 +16,9 @@ from pathlib import Path
 import environ
 from django.contrib.messages import constants as messages
 
-from .constants import BASE_APP_NAME
-
+from .constants import (
+    BASE_APP_NAME, LOGIN_URL as USER_LOGIN_URL, MIN_PASSWORD_LEN
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,6 +75,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
 
     # https://pypi.org/project/dj3-cloudinary-storage/
     # If using for static and/or media files, make sure that cloudinary_storage
@@ -84,9 +86,19 @@ INSTALLED_APPS = [
 
     'django_countries',
 
-    #
+    BASE_APP_NAME,
 
+    # needs to be after app with django template overrides
+    'django.forms',
 ]
+
+# To supply custom templates to django widgets:
+# 1) Add 'django.forms' to INSTALLED_APPS; *after* the app with the overrides.
+# 2) Add FORM_RENDERER = 'django.forms.renderers.TemplatesSetting' to
+#    settings.py.
+# Courtesy of https://stackoverflow.com/a/52184422/4054609
+# https://docs.djangoproject.com/en/4.1/ref/forms/renderers/#django.forms.renderers.TemplatesSetting
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -163,6 +175,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.'
                 'MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': MIN_PASSWORD_LEN,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.'
@@ -173,6 +188,13 @@ AUTH_PASSWORD_VALIDATORS = [
                 'NumericPasswordValidator',
     },
 ]
+
+# https://docs.djangoproject.com/en/4.1/ref/settings/#login-url
+LOGIN_URL = USER_LOGIN_URL
+# https://docs.djangoproject.com/en/4.1/ref/settings/#login-redirect-url
+LOGIN_REDIRECT_URL = '/'
+# https://docs.djangoproject.com/en/4.1/ref/settings/#logout-redirect-url
+LOGOUT_REDIRECT_URL = '/'
 
 # https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-MESSAGE_TAGS
 MESSAGE_TAGS = {
