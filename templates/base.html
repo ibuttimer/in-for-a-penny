@@ -65,6 +65,12 @@
                 <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Planner</a>
                 <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Useful Links</a>
                 <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">About Us</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'account_logout' %}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Logout</a>
+                {% else %}
+                    <a href="{% url 'account_login' %}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Login</a>
+                    <a href="{% url 'account_signup' %}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Register</a>
+                {% endif %}
             </div>
         </div>
     </nav>
