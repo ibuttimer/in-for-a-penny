@@ -27,3 +27,5 @@ REGISTER_URL = f"{ACCOUNTS_URL}signup"
 LOGIN_ROUTE_NAME = "account_login"
 LOGOUT_ROUTE_NAME = "account_logout"
 REGISTER_ROUTE_NAME = "account_signup"
+
+MIN_PASSWORD_LEN = 8
