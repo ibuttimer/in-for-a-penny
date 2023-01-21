@@ -10,11 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/interface.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/interface.js' %}"></script>
+
     <!-- Tailwind -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-        <!-- Font Awesome -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
 
 
     {% block extra_css %}
@@ -54,20 +55,20 @@
         </div>
             <div class="dock" id="dock">
                 <div class="dock-container flex flex-row">
-                    <a class="dock-item flex items-center text-center p-2 m-2" href="#">
-                        <img src="./static/img/home.png" alt="Home" class="w-6 h-6"/>
+                    <a class="dock-item flex items-center text-center p-2 m-2" href="{% url 'base:landing' %}">
+                        <img src="{% static 'img/home.png' %}" alt="Home" class="w-6 h-6"/>
                         <span class="ml-2">Home</span>
                     </a>
                     <a class="dock-item flex items-center text-center p-2 m-2" href="#">
-                        <img src="./static/img/planner.png" alt="Planner" class="w-6 h-6"/>
+                        <img src="{% static 'img/planner.png' %}" alt="Planner" class="w-6 h-6"/>
                         <span class="ml-2">Planner</span>
                     </a>
-                    <a class="dock-item flex items-center text-center p-2 m-2" href="#">
-                        <img src="./static/img/aboutus.png" alt="About us" class="w-6 h-6"/>
+                    <a class="dock-item flex items-center text-center p-2 m-2" href="{% url 'base:about' %}">
+                        <img src="{% static 'img/aboutus.png' %}" alt="About us" class="w-6 h-6"/>
                         <span class="ml-2">About Us</span>
                     </a>
-                    <a class="dock-item flex items-center text-center p-2 m-2" href="#">
-                        <img src="./static/img/Links.png" alt="Links" class="w-6 h-6"/>
+                    <a class="dock-item flex items-center text-center p-2 m-2" href="{% url 'base:links' %}">
+                        <img src="{% static 'img/links.png' %}" alt="Links" class="w-6 h-6"/>
                         <span class="ml-2">Useful Links</span>
                     </a>
                 </div>
