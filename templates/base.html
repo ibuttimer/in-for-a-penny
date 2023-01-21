@@ -13,8 +13,8 @@
     <script type="text/javascript" src="{% static 'js/interface.js' %}"></script>
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-        <!-- Font Awesome -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
 
 
     {% block extra_css %}
@@ -63,10 +63,10 @@
         <div :class="open ? 'block': 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
             <div class="dock" id="dock">
                 <div class="dock-container">
-                <a class="dock-item" href="#"><img src="./static/img/home.png" alt="Home" /><span>Home</span></a> 
-                <a class="dock-item" href="#"><img src="./static/img/planner.png" alt="Planner" /><span>Planner</span></a> 
-                <a class="dock-item" href="#"><img src="./static/img/aboutus.png" alt="About us" /><span>About Us</span></a> 
-                <a class="dock-item" href="#"><img src="./static/img/links.png" alt="Links" /><span>Useful Links</span></a> 
+                <a class="dock-item" href="{% url 'base:landing' %}"><img src="{% static 'img/home.png' %}" alt="Home" /><span>Home</span></a>
+                <a class="dock-item" href="#"><img src="{% static 'img/planner.png' %}" alt="Planner" /><span>Planner</span></a>
+                <a class="dock-item" href="{% url 'base:about' %}"><img src="{% static 'img/aboutus.png' %}" alt="About us" /><span>About Us</span></a>
+                <a class="dock-item" href="{% url 'base:links' %}"><img src="{% static 'img/links.png' %}" alt="Links" /><span>Useful Links</span></a>
               
               </div>
               </div>
