@@ -1,6 +1,6 @@
 # Meetings
 
-## 20-01-23 17:30
+## 20-01-23 17:30 GMT
 ### Attendees
 
 |    KB    |   IB    |   CC    |    HD    |   DJ    |   NT    | 
@@ -45,3 +45,22 @@
 - Next meeting 
 
     Saturday 21/01/2023 09:00 GMT
+
+## 21-01-23 09:00 GMT
+### Attendees
+
+|    KB    |   IB    |   CC    |    HD    |   DJ    |   NT    | 
+|:--------:|:-------:|:-------:|:--------:|:-------:|:-------:|
+| &check;  | &check; | &check; | &check;  | &check; | &check; |
+
+### Minutes
+- Everyone to ensure they have local dev environment setup and running (instructions in group chat)
+- Everyone to add features using Feature template
+
+  https://github.com/ibuttimer/in-for-a-penny/issues/new?assignees=&labels=feature&template=feature.md&title=Feature%3A+title
+
+- [tailwindcss](https://tailwindcss.com/), [issue #9](https://github.com/ibuttimer/in-for-a-penny/issues/9) ongoing
+
+- Next meeting
+
+  Saturday 21/01/2023 12:30 GMT
