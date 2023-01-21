@@ -5,6 +5,7 @@ COPYRIGHT = "Team InForAPenny"
 
 # Namespace related
 BASE_APP_NAME = "base"
+BUDGET_APP_NAME = "budget"
 
 # Base routes related
 HOME_URL = "/"
