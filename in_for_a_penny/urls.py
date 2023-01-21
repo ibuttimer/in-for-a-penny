@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 from in_for_a_penny import settings
-from .constants import BASE_APP_NAME, ADMIN_URL
+from .constants import BASE_APP_NAME, ADMIN_URL, ACCOUNTS_URL
 
 urlpatterns = [
     path(ADMIN_URL, admin.site.urls),
-    path('', include(f'{BASE_APP_NAME}.urls')),
 
+    path(ACCOUNTS_URL, include('allauth.urls')),
+
+    path('', include(f'{BASE_APP_NAME}.urls')),
 ]
 
 if settings.DEBUG:
