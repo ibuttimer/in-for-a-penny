@@ -1,8 +1,8 @@
-# <<website_name>>
+# Dara Planner
 
 ## Team Name: InForAPenny
 
-[InForAPenny](https://in-for-a-penny.herokuapp.com/)
+[Dara Planner](https://dara-planner.herokuapp.com/)
 
 ## Contents(#contents)
 
