@@ -29,6 +29,9 @@ LOGIN_ROUTE_NAME = "account_login"
 LOGOUT_ROUTE_NAME = "account_logout"
 REGISTER_ROUTE_NAME = "account_signup"
 
+# Budget routes related
+BUDGET_URL = "budget/"
+
 # Misc routes related
 ABOUT_URL = "about/"
 LINKS_URL = "links/"
