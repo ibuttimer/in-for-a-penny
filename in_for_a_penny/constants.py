@@ -34,9 +34,11 @@ BUDGET_URL = "budget/"
 
 # Misc routes related
 ABOUT_URL = "about/"
+CONVERT_URL = "convert/"
 LINKS_URL = "links/"
 
 ABOUT_ROUTE_NAME = "about"
+CONVERT_ROUTE_NAME = "convert"
 LINKS_ROUTE_NAME = "links"
 
 MIN_PASSWORD_LEN = 8
@@ -46,4 +48,3 @@ GET = 'GET'
 PATCH = 'PATCH'
 POST = 'POST'
 DELETE = 'DELETE'
-
