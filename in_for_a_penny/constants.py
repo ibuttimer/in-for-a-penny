@@ -1,5 +1,5 @@
 
-APP_NAME = "In For A Penny"
+APP_NAME = "Dara Planner"
 COPYRIGHT_YEAR = 2023
 COPYRIGHT = "Team InForAPenny"
 
