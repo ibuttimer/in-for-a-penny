@@ -6,7 +6,10 @@ from django.urls import reverse
 from django.views import View, generic
 
 from in_for_a_penny.constants import HOME_ROUTE_NAME
-from .constants import THIS_APP, FORM_CTX, BUDGET_BY_ID_ROUTE_NAME, SUBMIT_URL_CTX, BUDGET_NEW_ROUTE_NAME
+from .constants import (
+    THIS_APP, FORM_CTX, BUDGET_BY_ID_ROUTE_NAME, SUBMIT_URL_CTX,
+    BUDGET_NEW_ROUTE_NAME, BUDGETS_ROUTE_NAME
+)
 from .forms import BudgetForm
 from .models import Budget
 
@@ -28,7 +31,8 @@ class BudgetCreate(LoginRequiredMixin, View):
         return self.render_form(request, BudgetForm(), submit_url)
 
     @staticmethod
-    def render_form(request: HttpRequest, form: BudgetForm, submit_url: str) -> HttpResponse:
+    def render_form(request: HttpRequest, form: BudgetForm,
+                    submit_url: str = None) -> HttpResponse:
         return render(request, f'{THIS_APP}/budget_form.html', context={
             FORM_CTX: form,
             SUBMIT_URL_CTX: submit_url
@@ -56,7 +60,7 @@ class BudgetCreate(LoginRequiredMixin, View):
         else:
             success = False
 
-        return redirect(HOME_ROUTE_NAME) if success else \
+        return redirect(f'{THIS_APP}:{BUDGETS_ROUTE_NAME}') if success else \
             self.render_form(request, form)
 
 
@@ -88,12 +92,8 @@ class BudgetById(LoginRequiredMixin, View):
         # perform own budget check
         own_content_check(request, budget)
 
-        submit_url = reverse(
-            f'{THIS_APP}:{BUDGET_BY_ID_ROUTE_NAME}', args=[budget.id])
-
-        # TODO init date fields
         return BudgetCreate.render_form(
-            request, BudgetForm(instance=budget), submit_url)
+            request, BudgetForm(instance=budget), self.url(budget))
 
     def post(self, request: HttpRequest,
              pk: int, *args, **kwargs) -> HttpResponse:
@@ -124,7 +124,16 @@ class BudgetById(LoginRequiredMixin, View):
             success = False
 
         return redirect(HOME_ROUTE_NAME) if success else \
-            BudgetCreate.render_form(request, form)
+            BudgetCreate.render_form(request, form, self.url(budget))
+
+    def url(self, budget: Budget) -> str:
+        """
+        Get url for specified `budget`
+        :param budget:
+        :return:
+        """
+        return reverse(
+            f'{THIS_APP}:{BUDGET_BY_ID_ROUTE_NAME}', args=[budget.id])
 
 
 def own_content_check(

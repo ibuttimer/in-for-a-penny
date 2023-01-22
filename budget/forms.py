@@ -3,13 +3,35 @@ from django.utils.translation import gettext_lazy as _
 
 from django import forms
 
+import ccy
+
 from .models import Budget, BudgetItem
+
+
+def get_currency_choices():
+    choices = [
+        ("", "Select One …")
+    ]
+    choices.extend([
+        (code, code) for code in list(ccy.all())
+    ])
+    return choices
 
 
 class BudgetForm(forms.ModelForm):
     """
     Form to create/update a budget.
     """
+
+    DEFAULT_FORMATS = [
+        '%d-%m-%Y',  # '25-10-2006'
+        '%d/%m/%Y',  # '25/10/2006'
+        '%d %m %Y',  # '25 10 2006'
+        '%d-%m-%y',  # '25-10-06'
+        '%d/%m/%y',  # '25/10/06'
+        '%d %m %y',  # '25 10 06'
+    ]
+    CURRENCY_CHOICES = get_currency_choices()
 
     title = forms.CharField(
         label=_("Title"),
@@ -21,14 +43,15 @@ class BudgetForm(forms.ModelForm):
         max_length=Budget.BUDGET_ATTRIB_DESCRIPTION_MAX_LEN,
         required=False)
 
-    start_date = DateField(input_formats=['%d/%m/%Y'])
+    start_date = DateField(input_formats=DEFAULT_FORMATS)
 
-    end_date = DateField(input_formats=['%d/%m/%Y'])
+    end_date = DateField(input_formats=DEFAULT_FORMATS)
 
-    base_currency = forms.CharField(
+    base_currency = forms.ChoiceField(
         label=_("Base currency"),
-        max_length=Budget.BUDGET_ATTRIB_CURRENCY_CODE_MAX_LEN,
-        required=True)
+        required=True,
+        choices = CURRENCY_CHOICES
+    )
 
     class Meta:
         model = Budget
@@ -37,7 +60,6 @@ class BudgetForm(forms.ModelForm):
             Budget.START_DATE_FIELD, Budget.END_DATE_FIELD,
             Budget.BASE_CURRENCY_FIELD
         ]
-
 
 class BudgetItemForm(forms.ModelForm):
     """
