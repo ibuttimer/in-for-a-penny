@@ -71,10 +71,11 @@ class BudgetItemForm(forms.ModelForm):
         max_length=BudgetItem.BUDGET_ITEM_ATTRIB_NAME_MAX_LEN,
         required=True)
 
-    currency = forms.CharField(
+    currency = forms.ChoiceField(
         label=_("Currency"),
-        max_length=BudgetItem.BUDGET_ITEM_ATTRIB_CURRENCY_CODE_MAX_LEN,
-        required=True)
+        required=True,
+        choices = BudgetForm.CURRENCY_CHOICES
+    )
 
     amount = DecimalField(decimal_places=2)
 

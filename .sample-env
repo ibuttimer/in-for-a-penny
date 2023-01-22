@@ -28,3 +28,7 @@ SITE_ID=2
 # hostname of application on Heroku; e.g. in-for-a-penny.herokuapp.com/
 # https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts
 #HEROKU_HOSTNAME = <app>.herokuapp.com
+
+# required for running tailwind css
+# set to path to npm in local nodejs installation
+LOCAL_NPM_BIN_PATH="C:/Program Files/nodejs/npm.cmd"

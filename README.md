@@ -93,6 +93,8 @@ The development environment requires:
 
 | Artifact                                 | Download and installation instructions               |
 |------------------------------------------|------------------------------------------------------|
+| [Node.js](https://nodejs.org/)           | https://nodejs.org/en/download/                      |
+| [npm](https://www.npmjs.com/)            | Included with Node.js installation                   |
 | [git](https://git-scm.com/)              | https://git-scm.com/downloads                        |
 | [Python](https://www.python.org/)        | https://www.python.org/downloads/                    |
 | [Django](https://www.djangoproject.com/) | https://www.djangoproject.com/download/              |
@@ -123,19 +125,20 @@ There are two requirements files:
 * [requirements-dev.txt](requirements-dev.txt) which installs extra development-only requirements in addition to the production requirements from [requirements.txt](requirements.txt)
 
 ###### Table 1: Configuration settings
-| Key                      | Value                                                                                                                                                                                                                                                                                           |
-|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ENV_FILE                 | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                                                                                                                                         |
-| PORT                     | Port application is served on; default 8000                                                                                                                                                                                                                                                     |
-| DEBUG                    | A boolean that turns on/off debug mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable                                                                                                                                                                                             |
-| DEVELOPMENT              | A boolean that turns on/off development mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable                                                                                                                                                                                       |
-| TEST                     | A boolean that turns on/off test mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable. Only valid when development mode is enabled.                                                                                                                                                |
-| SECRET_KEY               | [Secret key](https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation)                                                                                                              |
-| DATABASE_URL             | [Database url](https://docs.djangoproject.com/en/4.1/ref/settings/#databases)                                                                                                                                                                                                                   |
-| CLOUDINARY_URL           | [Cloudinary url](https://pypi.org/project/dj3-cloudinary-storage/)                                                                                                                                                                                                                              |
-| SITE_ID                  | Id (primary key) of site in the `django_site` table of the database. See [Configure authentication](#configure-authentication).                                                                                                                                                                 |
-| HEROKU_HOSTNAME          | [Hostname](https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts) of application on Heroku.<br>__Note:__ To specify multiple hosts, use a comma-separated list with no spaces.<br>__Note:__ Set to `localhost,127.0.0.1` in local development mode                                  |
-| REMOTE_DATABASE_URL      | Url of remote PostgreSQL database resource. For an [ElephantSQL](https://www.elephantsql.com/) database this is available from `URL` in the instance details.<br>__Note:__ Only required for admin purposes, see database configuration under [Cloud-based Deployment](#cloud-based-deployment) |
+| Key                 | Value                                                                                                                                                                                                                                                                                           |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ENV_FILE            | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                                                                                                                                         |
+| PORT                | Port application is served on; default 8000                                                                                                                                                                                                                                                     |
+| DEBUG               | A boolean that turns on/off debug mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable                                                                                                                                                                                             |
+| DEVELOPMENT         | A boolean that turns on/off development mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable                                                                                                                                                                                       |
+| TEST                | A boolean that turns on/off test mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable. Only valid when development mode is enabled.                                                                                                                                                |
+| SECRET_KEY          | [Secret key](https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation)                                                                                                              |
+| DATABASE_URL        | [Database url](https://docs.djangoproject.com/en/4.1/ref/settings/#databases)                                                                                                                                                                                                                   |
+| CLOUDINARY_URL      | [Cloudinary url](https://pypi.org/project/dj3-cloudinary-storage/)                                                                                                                                                                                                                              |
+| SITE_ID             | Id (primary key) of site in the `django_site` table of the database. See [Configure authentication](#configure-authentication).                                                                                                                                                                 |
+| HEROKU_HOSTNAME     | [Hostname](https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts) of application on Heroku.<br>__Note:__ To specify multiple hosts, use a comma-separated list with no spaces.<br>__Note:__ Set to `localhost,127.0.0.1` in local development mode                                  |
+| REMOTE_DATABASE_URL | Url of remote PostgreSQL database resource. For an [ElephantSQL](https://www.elephantsql.com/) database this is available from `URL` in the instance details.<br>__Note:__ Only required for admin purposes, see database configuration under [Cloud-based Deployment](#cloud-based-deployment) |
+| NPM_BIN_PATH        | Path to [npm](https://www.npmjs.com/) from local installation of [Node.js](https://nodejs.org/)                                                                                                                                                                                                 |
 
 #### Environment variables
 Set environment variables corresponding to the keys in [Table 1: Configuration settings](#table-1-configuration-settings).
@@ -162,6 +165,11 @@ the following steps must be performed, from a terminal window, in the `in-for-a-
 $ python manage.py migrate
 ````
 
+#### Initialise tailwindcss
+````shell
+$ python manage.py tailwind install
+````
+
 #### Create a superuser
 Enter `Username`, `Password` and optionally `Email address`.
 ````shell
@@ -183,9 +191,13 @@ From [django-allauth Post-Installation](https://django-allauth.readthedocs.io/en
     __Note:__ The id (primary key) of the site must be added to the application configuration. See `SITE_ID` in [Table 1: Configuration settings](#table-1-configuration-settings).
 
 ### Run server
-In order to run the development server, run the following command from the `in-for-a-penny` folder:
+In order to run the development server, run the following commands from the `in-for-a-penny` folder:
 
 ````shell
+# start tailwindcss
+$ python manage.py tailwind start
+
+# start server
 $ python manage.py runserver
 ````
 

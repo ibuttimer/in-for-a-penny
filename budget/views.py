@@ -8,9 +8,9 @@ from django.views import View, generic
 from in_for_a_penny.constants import HOME_ROUTE_NAME
 from .constants import (
     THIS_APP, FORM_CTX, BUDGET_BY_ID_ROUTE_NAME, SUBMIT_URL_CTX,
-    BUDGET_NEW_ROUTE_NAME, BUDGETS_ROUTE_NAME
+    BUDGET_NEW_ROUTE_NAME, BUDGETS_ROUTE_NAME, EXPENSES_CTX
 )
-from .forms import BudgetForm
+from .forms import BudgetForm, BudgetItemForm
 from .models import Budget
 
 
@@ -32,10 +32,12 @@ class BudgetCreate(LoginRequiredMixin, View):
 
     @staticmethod
     def render_form(request: HttpRequest, form: BudgetForm,
-                    submit_url: str = None) -> HttpResponse:
+                    submit_url: str = None,
+                    expenses: list[BudgetItemForm] = None) -> HttpResponse:
         return render(request, f'{THIS_APP}/budget_form.html', context={
             FORM_CTX: form,
-            SUBMIT_URL_CTX: submit_url
+            SUBMIT_URL_CTX: submit_url,
+            EXPENSES_CTX: expenses
         })
 
     def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:

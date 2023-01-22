@@ -32,6 +32,14 @@
         {{ form }}
         <input type="submit" value="Submit">
     </form>
+
+    {% for expense in expenses %}
+        <form action="{{ expense.submit_url }}" method="post">
+            {% csrf_token %}
+            {{ expense.form }}
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
 </div>
 
 {% endblock %}
