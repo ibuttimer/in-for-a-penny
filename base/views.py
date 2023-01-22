@@ -17,7 +17,7 @@ def get_landing(request: HttpRequest) -> HttpResponse:
         request, f'{THIS_APP}/landing.html',context={
         })
 
-@login_required
+# @login_required
 @require_http_methods([GET])
 def get_home(request: HttpRequest) -> HttpResponse:
     """

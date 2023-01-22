@@ -44,7 +44,7 @@ environ.Env.read_env(
 )
 
 # required for running tailwind css
-NPM_BIN_PATH = env('LOCAL_NPM_BIN_PATH')
+#NPM_BIN_PATH = env('LOCAL_NPM_BIN_PATH')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -59,7 +59,7 @@ TEST = env('TEST')
 
 if env('DEVELOPMENT'):
     ALLOWED_HOSTS = ['testserver'] \
-        if env('TEST') else ['localhost', '127.0.0.1']
+        if env('TEST') else ['localhost', '127.0.0.1', '.gitpod.io']
 else:
     ALLOWED_HOSTS = env.list('HEROKU_HOSTNAME')
 
@@ -77,9 +77,9 @@ INSTALLED_APPS = [
     # The following apps are required by 'allauth':
     #   django.contrib.auth, django.contrib.messages
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
 
     # https://pypi.org/project/dj3-cloudinary-storage/
     # If using for static and/or media files, make sure that cloudinary_storage
@@ -87,9 +87,9 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
-    'tailwind',
-    'theme',
-    'django_browser_reload',
+    # 'tailwind',
+    # 'theme',
+    # 'django_browser_reload',
 
     'django_countries',
 
@@ -100,7 +100,7 @@ INSTALLED_APPS = [
     'django.forms',
 ]
 
-TAILWIND_APP_NAME = 'theme'
+#TAILWIND_APP_NAME = 'theme'
 
 # To supply custom templates to django widgets:
 # 1) Add 'django.forms' to INSTALLED_APPS; *after* the app with the overrides.
@@ -115,7 +115,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # "django_browser_reload.middleware.BrowserReloadMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

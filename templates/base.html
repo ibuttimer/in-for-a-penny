@@ -4,7 +4,7 @@
 {% load i18n %}
 {% load static %}
 {% load cloudinary_static %}
-{% load tailwind_tags %}
+{# load tailwind_tags #}
 
 <head>
   <meta charset="UTF-8">
@@ -15,7 +15,7 @@
   <!-- Font Awesome -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
     integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
-    {% tailwind_css %}
+    {# tailwind_css #}
 
   {% block extra_css %}
   {% endblock extra_css %}
@@ -82,26 +82,25 @@
 
           <div class="bg-white rounded-md list-none  text-center capitalize">
             <li class="py-3 border-b-2"><a href="{% url 'base:landing' %}" class="list-none  hover:text-indigo-600">Home</a></li>
-            {% if user.is_authenticated %}
+            {# if user.is_authenticated #}
               <li class="py-3 border-b-2"><a href="{% url 'budget:budgets' %}" class="list-none  hover:text-indigo-600">The Dara planner</a></li>
               <li class="py-3 border-b-2"><a href="{% url 'base:convert' %}" class="list-none  hover:text-indigo-600">Convert</a></li>
               <li class="py-3 border-b-2"><a href="{% url 'base:links' %}" class="list-none  hover:text-indigo-600">Useful Links</a></li>
-            {% endif %}
+            {# endif #}
             <li class="py-3 border-b-2"><a href="{% url 'base:about' %}" class="list-none  hover:text-indigo-600">About us</a></li>
-            {% if user.is_authenticated %}
-              <li class="py-3 "><a href="{% url 'account_logout' %}" class="list-none border-b-2 hover:text-indigo-600">Logout</a></li>
-            {% else %}
-              <li class="py-3 "><a href="{% url 'account_login' %}" class="list-none border-b-2 hover:text-indigo-600">Login</a></li>
-              <li class="py-3 "><a href="{% url 'account_signup' %}" class="list-none border-b-2 hover:text-indigo-600">
-                <h1
-                  class="text-text-gray-600  py-2 hover:cursor-pointer px-4 rounded text-white bg-gradient-to-tr from-indigo-600 to-green-600 hover:shadow-lg">
-                  SIGNUP
-                </h1>
-              </a>
-            </li>
+            {# if user.is_authenticated #}
+            {#   <li class="py-3 "><a href="{% url 'account_logout' %}" class="list-none border-b-2 hover:text-indigo-600">Logout</a></li> #}
+            {# else #}
+            {# <li class="py-3 "><a href="{% url 'account_login' %}" class="list-none border-b-2 hover:text-indigo-600">Login</a></li> #}
+            {# <li class="py-3 "><a href="{% url 'account_signup' %}" class="list-none border-b-2 hover:text-indigo-600"> #}
+            {#  <h1 #}
+                  {#    class="text-text-gray-600  py-2 hover:cursor-pointer px-4 rounded text-white bg-gradient-to-tr from-indigo-600 to-green-600 hover:shadow-lg"> #}
+            {# SIGNUP #}
+            {#  </h1> #}
+            {#               </a> #}
+            {# </li> #}
 
-                
-            {% endif %}
+            {# endif #}
           </div>
         </div>
       </div>
