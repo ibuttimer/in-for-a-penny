@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View, generic
 
-from in_for_a_penny.constants import HOME_ROUTE_NAME
+from in_for_a_penny.constants import HOME_ROUTE_NAME, BASE_APP_NAME
 from .constants import (
     THIS_APP, FORM_CTX, BUDGET_BY_ID_ROUTE_NAME, SUBMIT_URL_CTX,
     BUDGET_NEW_ROUTE_NAME, BUDGETS_ROUTE_NAME, EXPENSES_CTX
@@ -16,7 +16,9 @@ from .forms import BudgetForm, BudgetItemForm
 from .models import Budget
 
 
-class BudgetCreate(LoginRequiredMixin, View):
+class BudgetCreate(
+    #LoginRequiredMixin,
+    View):
     """
     Class-based view for budget creation
     """
@@ -76,7 +78,8 @@ class BudgetList(generic.ListView):
     context_object_name = 'budget_list'
 
 
-class BudgetById(LoginRequiredMixin, View):
+class BudgetById(#LoginRequiredMixin,
+        View):
     """
     Class-based view for individual budget view/update
     """
@@ -94,7 +97,7 @@ class BudgetById(LoginRequiredMixin, View):
         budget = get_object_or_404(Budget, id=pk)
 
         # perform own budget check
-        own_content_check(request, budget)
+        # own_content_check(request, budget)
 
         return BudgetCreate.render_form(
             request, BudgetForm(instance=budget), self.url(budget))
@@ -113,7 +116,7 @@ class BudgetById(LoginRequiredMixin, View):
         budget = get_object_or_404(Budget, id=pk)
 
         # perform own budget check
-        own_content_check(request, budget)
+        # own_content_check(request, budget)
 
         form = BudgetForm(data=request.POST, instance=budget)
 
@@ -127,7 +130,7 @@ class BudgetById(LoginRequiredMixin, View):
         else:
             success = False
 
-        return redirect(HOME_ROUTE_NAME) if success else \
+        return redirect(f'{THIS_APP}:{BUDGETS_ROUTE_NAME}') if success else \
             BudgetCreate.render_form(request, form, self.url(budget))
 
     def url(self, budget: Budget) -> str:
