@@ -28,6 +28,8 @@ urlpatterns = [
     path(ACCOUNTS_URL, include('allauth.urls')),
 
     path('', include(f'{BASE_APP_NAME}.urls')),
+
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 if settings.DEBUG:

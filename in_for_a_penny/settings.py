@@ -84,6 +84,9 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'tailwind',
+    'theme',
+    'django_browser_reload',
 
     'django_countries',
 
@@ -93,6 +96,8 @@ INSTALLED_APPS = [
     # needs to be after app with django template overrides
     'django.forms',
 ]
+
+TAILWIND_APP_NAME = 'theme'
 
 # To supply custom templates to django widgets:
 # 1) Add 'django.forms' to INSTALLED_APPS; *after* the app with the overrides.
@@ -107,6 +112,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -270,3 +276,8 @@ FIXTURE_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

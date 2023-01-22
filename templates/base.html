@@ -4,6 +4,7 @@
 {% load i18n %}
 {% load static %}
 {% load cloudinary_static %}
+{% load tailwind_tags %}
 
 <head>
   <meta charset="UTF-8">
@@ -14,6 +15,7 @@
   <!-- Font Awesome -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
     integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    {% tailwind_css %}
 
   {% block extra_css %}
   {% endblock extra_css %}
