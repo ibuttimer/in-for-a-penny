@@ -17,7 +17,8 @@ import environ
 from django.contrib.messages import constants as messages
 
 from .constants import (
-    BASE_APP_NAME, LOGIN_URL as USER_LOGIN_URL, MIN_PASSWORD_LEN
+    BASE_APP_NAME, LOGIN_URL as USER_LOGIN_URL, MIN_PASSWORD_LEN,
+    BUDGET_APP_NAME
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -87,6 +88,7 @@ INSTALLED_APPS = [
     'django_countries',
 
     BASE_APP_NAME,
+    BUDGET_APP_NAME,
 
     # needs to be after app with django template overrides
     'django.forms',

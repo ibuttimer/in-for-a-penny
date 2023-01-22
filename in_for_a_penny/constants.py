@@ -5,6 +5,7 @@ COPYRIGHT = "Team InForAPenny"
 
 # Namespace related
 BASE_APP_NAME = "base"
+BUDGET_APP_NAME = "budget"
 
 # Base routes related
 HOME_URL = "/"
@@ -27,6 +28,9 @@ REGISTER_URL = f"{ACCOUNTS_URL}signup"
 LOGIN_ROUTE_NAME = "account_login"
 LOGOUT_ROUTE_NAME = "account_logout"
 REGISTER_ROUTE_NAME = "account_signup"
+
+# Budget routes related
+BUDGET_URL = "budget/"
 
 # Misc routes related
 ABOUT_URL = "about/"

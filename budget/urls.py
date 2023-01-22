@@ -37,21 +37,21 @@ Including another URLconf
 """
 from django.urls import path
 
-from in_for_a_penny.constants import (
-    LANDING_ROUTE_NAME, HOME_URL, HOME_ROUTE_NAME,
-    ABOUT_URL, ABOUT_ROUTE_NAME, LINKS_URL, LINKS_ROUTE_NAME
+from .constants import (
+    THIS_APP, BUDGETS_URL, BUDGETS_ROUTE_NAME,
+    BUDGET_NEW_URL, BUDGET_NEW_ROUTE_NAME,
+    BUDGET_ITEMS_URL, BUDGET_ITEMS_ROUTE_NAME,
+    BUDGET_BY_ID_URL, BUDGET_BY_ID_ROUTE_NAME
 )
-from .constants import THIS_APP
-from .views import get_landing, get_home, get_about, get_links
-
+from .views import BudgetCreate, BudgetList, BudgetById
 
 # https://docs.djangoproject.com/en/4.1/topics/http/urls/#url-namespaces-and-included-urlconfs
 app_name = THIS_APP
 
 
 urlpatterns = [
-    path(LINKS_URL, get_links, name=LINKS_ROUTE_NAME),
-    path(ABOUT_URL, get_about, name=ABOUT_ROUTE_NAME),
-    path('', get_landing, name=LANDING_ROUTE_NAME),
-    path('', get_landing, name=HOME_ROUTE_NAME),
+    # path(BUDGET_ITEMS_URL, get_links, name=BUDGET_ITEMS_ROUTE_NAME),
+    path(BUDGET_BY_ID_URL, BudgetById.as_view(), name=BUDGET_BY_ID_ROUTE_NAME),
+    path(BUDGETS_URL, BudgetList.as_view(), name=BUDGETS_ROUTE_NAME),
+    path(BUDGET_NEW_URL, BudgetCreate.as_view(), name=BUDGET_NEW_ROUTE_NAME),
 ]

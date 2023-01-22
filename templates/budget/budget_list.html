@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{{app_name}}{% endblock %}
+
+{% block content %}
+<div>
+    <h2>Budgets</h2>
+    <ul>
+        {% for budget in budget_list %}
+            <li>
+                <a href="{% url 'budget:budget_by_id' budget.id %}">
+                    {{ budget.title }} {{ budget.start_date|date:"D d M Y" }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
