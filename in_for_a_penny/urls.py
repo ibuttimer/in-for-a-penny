@@ -17,14 +17,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from budget.constants import BUDGETS_URL
 from in_for_a_penny import settings
-from .constants import BASE_APP_NAME, ADMIN_URL, ACCOUNTS_URL
+from .constants import BASE_APP_NAME, ADMIN_URL, ACCOUNTS_URL, BUDGET_URL
 
 urlpatterns = [
     path(ADMIN_URL, admin.site.urls),
 
-    path(BUDGETS_URL, include('budget.urls')),
+    path(BUDGET_URL, include('budget.urls')),
 
     path(ACCOUNTS_URL, include('allauth.urls')),
 
