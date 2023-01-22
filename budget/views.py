@@ -1,3 +1,5 @@
+from typing import List
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse
@@ -33,7 +35,7 @@ class BudgetCreate(LoginRequiredMixin, View):
     @staticmethod
     def render_form(request: HttpRequest, form: BudgetForm,
                     submit_url: str = None,
-                    expenses: list[BudgetItemForm] = None) -> HttpResponse:
+                    expenses: List[BudgetItemForm] = None) -> HttpResponse:
         return render(request, f'{THIS_APP}/budget_form.html', context={
             FORM_CTX: form,
             SUBMIT_URL_CTX: submit_url,

@@ -214,7 +214,7 @@ The site was deployed on [Heroku](https://www.heroku.com).
 The following steps were followed to deploy the website:
 - Login to Heroku in a browser
 - From the dashboard select `New -> Create new app`
-- Set the value for `App name`, choose the appropriate region and click `Create app`
+- Set the value for `App name`, (e.g. `dara-planner`), choose the appropriate region and click `Create app`
 - To provision the application with a database, such as an [ElephantSQL](https://www.elephantsql.com/) database.
   - For an [ElephantSQL](https://www.elephantsql.com/) database, follow the `Create a new instance` instructions under the `Getting started` section of the [ElephantSQL documentation](https://www.elephantsql.com/docs/index.html).
 - From the app settings, select the `Resources` tab.
@@ -223,7 +223,7 @@ The following steps were followed to deploy the website:
 
        __Note:__ In order the access the dashboard for the provisioned Cloudinary account, use the [Heroku CLI](https://devcenter.heroku.com/articles/cloudinary#management-console)
           ```shell
-          $ heroku addons:open cloudinary --app=in-for-a-penny
+          $ heroku addons:open cloudinary --app=dara-planner
           ```
 
 - From the app settings, select the `Settings` tab.
@@ -276,20 +276,20 @@ If any other settings vary from the defaults outlined in [Table 1: Configuration
     After logging into the Heroku CLI in a terminal window, in the `in-for-a-penny` folder:
     - Initialise the database
       ````shell
-      $  heroku run python manage.py migrate --app in-for-a-penny
+      $  heroku run python manage.py migrate --app dara-planner
       ````
     - Create a superuser
 
       Enter `Username`, `Password` and optionally `Email address`.
       ````shell
-      $ heroku run python manage.py createsuperuser --app in-for-a-penny
+      $ heroku run python manage.py createsuperuser --app dara-planner
       ````
 - Configure authentication
 
   Follow the same procedure as outlined in [Configure authentication](#configure-authentication) using the
-  Heroku domain as `&lt;domain&gt;`, e.g. `in-for-a-penny.herokuapp.com`
+  Heroku domain as `&lt;domain&gt;`, e.g. `dara-planner.herokuapp.com`
 
-The live website is available at [https://in-for-a-penny.herokuapp.com/](https://in-for-a-penny.herokuapp.com/)
+The live website is available at [https://dara-planner.herokuapp.com/](https://dara-planner.herokuapp.com/)
 
 
 
