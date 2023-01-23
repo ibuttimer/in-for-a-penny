@@ -9,6 +9,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection" />
 
@@ -16,7 +17,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
     integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- {% block extra_css %}
   {% endblock extra_css %}
@@ -33,16 +34,14 @@
 
 <body>
 
-      {% include 'nav.html' %}
-      <div class="container">
-      {% block content %}
-      {# content goes here #}
-      {% endblock content %}
-    </div>
-      {% include 'footer.html' %}
+  {% include 'nav.html' %}
+  <div class="">
+    {% block content %}
+    {# content goes here #}
+    {% endblock content %}
+  </div>
+  {% include 'footer.html' %}
 
   <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
 </body>
-
-</html>
