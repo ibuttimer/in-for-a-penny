@@ -7,18 +7,17 @@
 
 {% block content %}
 
-<div class="section">
-  <div class="row">
-    <div class="col l8 offset-s2">
-      <img class="front_pic" src="{% static 'img/pic1.png' %}" class="responsive-img">
-    </div> </div>
-    <div class="col">
-      <p class="flow-text">Welcome to The Dara Planner!<br><br>Your ultimate resource for planning and budgeting your next adventure.<br>Whether you're a seasoned traveler or just starting to plan your first trip, our website is here to help you make the most of your budget and ensure that you have an amazing experience.</p>
-    </div>
+<div class="row">
+  <div class="s12">
+    <img src="{% static 'img/pic1.png' %}" class="responsive-img front_pic">
   </div>
 </div>
-
-
-
+<div class="container">
+  <h1 class="center-align">Welcome to The Dara Planner!</h1>
+  <p class="flow-text">Your ultimate resource for planning and budgeting your next adventure.</p>
+  <p class="flow-text">Whether you're a seasoned traveler or just starting to plan your first trip, our website is here
+    to help you make the most of your budget and ensure that you have an amazing experience.</p>
+  <br>
+</div>
 
 {% endblock %}

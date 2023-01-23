@@ -1,4 +1,9 @@
-.front_pic
-{
-margin-top: 200px;
+body {
+    min-height: 100vh;
+    position: relative;
+}
+
+footer {
+    position: absolute;
+    width: 100%;
 }
