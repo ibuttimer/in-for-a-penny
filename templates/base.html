@@ -32,10 +32,13 @@
 </head>
 
 <body>
+
       {% include 'nav.html' %}
+      <div class="container">
       {% block content %}
       {# content goes here #}
       {% endblock content %}
+    </div>
       {% include 'footer.html' %}
 
   <script type="text/javascript" src="{% static 'js/script.js' %}"></script>

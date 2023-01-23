@@ -7,39 +7,44 @@
 
 {% block content %}
 <div class="container">
-<div class="row center-align">
+  <div class="row center-align">
     <div class="col s12 m6">
       <div class="card darken-1">
         <div class="card-content">
           <span class="card-title">Check Weather</span>
           <div class="api">
-        </div>
-        <section class="top-banner">
+          </div>
+          <section class="top-banner">
             <div class="container">
-                <form>
-                    <input type="text" placeholder="Search for a city" autofocus>
-                    <button class="btn" type="submit">SUBMIT</button>
-                    <span class="msg"></span>
-                </form>
+              <form>
+                <input type="text" placeholder="Search for a city" autofocus>
+                <button class="btn black" type="submit">SUBMIT</button>
+                <span class="msg"></span>
+              </form>
             </div>
-        </section>
-        <section class="ajax-section">
+            <div class="card-action">
+              <button class="btn black" type="button" onClick="window.location.reload()">
+                Reset
+              </button>
+            </div>
+          </section>
+          <section class="ajax-section">
             <div class="container">
-                <ul class="cities"></ul>
+              <ul class="cities"></ul>
             </div>
-        </section>
+          </section>
         </div>
         <div class="card-action">
-            <section class="ajax-section">
-                <div class="container">
-                    <ul class="cities"></ul>
-                </div>
-            </section>
+          <section class="ajax-section">
+            <div class="container">
+              <ul class="cities"></ul>
+            </div>
+          </section>
         </div>
       </div>
     </div>
   </div>
 </div>
-  <script type="text/javascript" src="{% static 'js/weather.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/weather.js' %}"></script>
 
 {% endblock %}
