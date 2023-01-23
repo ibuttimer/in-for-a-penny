@@ -1,0 +1,20 @@
+{% load static %}
+
+<nav class="blue">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo"><i class="material-icons">{% static 'img/dara.png' %}</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#"><i class="material-icons">Home</i></a></li>
+        {% if user.is_authenticated %}
+        <li><a href="#"><i class="material-icons">The Dara Planner</i></a></li>
+        <li><a href="#"><i class="material-icons">Convert</i></a></li>
+        <li><a href="#"><i class="material-icons">Useful Links</i></a></li>
+        <li><a href="#"><i class="material-icons">Logout</i></a></li>
+        {% else %}
+        <li><a href="#"><i class="material-icons">About Us</i></a></li>
+        <li><a href="#"><i class="material-icons">Login</i></a></li>
+        <li><a href="#"><i class="material-icons">Sign Up</i></a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
