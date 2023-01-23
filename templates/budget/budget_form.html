@@ -7,141 +7,143 @@
 {% block head_title %}{{app_name}}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col s12">
-            <div class="col s2">
-                <a href="{% url 'budget:budgets' %}" class="waves-effect waves-light btn deep-orange lighten-1">
-                    Budgets
-                </a>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div class="col s2">
+                    <a href="{% url 'budget:budgets' %}" class="waves-effect waves-light btn deep-orange lighten-1">
+                        Budgets
+                    </a>
+                </div>
+                {% if not is_new %}
+                <div class="col s2">
+                    <a href="{% url 'budget:budget_new' %}" class="waves-effect waves-light btn green accent-4">
+                        New Budget
+                    </a>
+                </div>
+                <div class="col s2 offset-s6">
+                    <a href="{% url 'budget:budgets' %}" class="waves-effect waves-light btn red darken-3"
+                        id="id_delete_budget">
+                        Delete
+                    </a>
+                </div>
+                {% endif %}
             </div>
-            {% if not is_new %}
-            <div class="col s2">
-                <a href="{% url 'budget:budget_new' %}" class="waves-effect waves-light btn green accent-4">
-                    New Budget
-                </a>
-            </div>
-            <div class="col s2 offset-s6">
-                <a href="{% url 'budget:budgets' %}" class="waves-effect waves-light btn red darken-3"
-                    id="id_delete_budget">
-                    Delete
-                </a>
-            </div>
-            {% endif %}
         </div>
-    </div>
 
-    <div class="row">
-        <form class="col s12" action="{{ submit_url }}" method="post">
-            {% csrf_token %}
-            {% include "snippet/form_errors.html" %}
-
-            <div class="row">
-                {% form_field form 'title' as title_field %}
-                <div class="input-field col s4">
-                    <input placeholder="Budget title" id="{{ title_field.auto_id }}" type="text" class="validate" value="{{ title_field.initial }}"
-                        name="{{ title_field.html_name }}" {% if title_field.required %} required {% endif %}>
-                    <label for="{{ title_field.auto_id }}">{{ title_field.label }}</label>
-                </div>
-                {% form_field form 'start_date' as start_field %}
-                <div class="input-field col s3">
-                    <input placeholder="Start date dd/mm/yyyy" id="{{ start_field.auto_id }}" type="text" class="validate" value="{{ start_field.initial }}"
-                           name="{{ start_field.html_name }}" {% if start_field.required %} required {% endif %}>
-                    <label for="{{ start_field.auto_id }}">{{ start_field.label }}</label>
-                </div>
-                {% form_field form 'end_date' as end_field %}
-                <div class="input-field col s3">
-                    <input placeholder="End date dd/mm/yyyy" id="{{ end_field.auto_id }}" type="text" class="validate" value="{{ end_field.initial }}"
-                           name="{{ end_field.html_name }}" {% if end_field.required %} required {% endif %}>
-                    <label for="{{ end_field.auto_id }}">{{ end_field.label }}</label>
-                </div>
-                {% form_field form 'base_currency' as base_field %}
-                <div class="input-field col s2">
-                    <select name="{{ base_field.html_name }}" id="{{ base_field.auto_id }}"
-                            {% if base_field.required %} required {% endif %}>
-                        {% for choice in base_field.field.choices %}
-                        <option value="{{ choice.0 }}" {% if base_field.initial == choice.0 %} selected {% endif %}}>{{ choice.1 }}</option>
-                        {% endfor %}
-                    </select>
-                    <label for="{{ base_field.auto_id }}">{{ base_field.label }}</label>
-                </div>
-            </div>
-            <div class="row">
-                {% form_field form 'description' as desc_field %}
-                <div class="input-field col s11">
-                    <input placeholder="Budget description" id="{{ desc_field.auto_id }}" type="text" class="validate" value="{{ desc_field.initial }}"
-                           name="{{ desc_field.html_name }}" {% if desc_field.required %} required {% endif %}>
-                    <label for="{{ desc_field.auto_id }}">{{ desc_field.label }}</label>
-                </div>
-                <div class="input-field col s1">
-                    <input id="budget_submit" type="submit" value="Save"
-                           class="waves-effect waves-light btn-small">
-                </div>
-
-            </div>
-        </form>
-    </div>
-
-    {% if not is_new %}
-    <div class="row">
-        {% form_field form 'base_currency' as base_field %}
-        <h5>Budget Total: <span class="budget-total">{{ total }} {{ base_field.initial }}</span></h5>
-    </div>
-    {% endif %}
-
-    {% for expense in expenses %}
-    <div class="row">
-        <form class="col s12" action="{{ expense.submit_url }}" method="post">
-            {% csrf_token %}
-            {% with form=expense.form %}
+        <div class="row">
+            <form class="col s12" action="{{ submit_url }}" method="post">
+                {% csrf_token %}
                 {% include "snippet/form_errors.html" %}
 
                 <div class="row">
-                    {% form_field form 'name' as name_field %}
-                    <div class="input-field col s2">
-                        <input placeholder="Expense" id="{{ name_field.auto_id }}_{{ forloop.counter0 }}" type="text" class="validate" value="{{ name_field.initial }}"
-                               name="{{ name_field.html_name }}" {% if name_field.required %} required {% endif %}>
-                        <label for="{{ name_field.auto_id }}_{{ forloop.counter0 }}">{{ name_field.label }}</label>
+                    {% form_field form 'title' as title_field %}
+                    <div class="input-field col s4">
+                        <input placeholder="Budget title" id="{{ title_field.auto_id }}" type="text" class="validate" value="{{ title_field.initial }}"
+                            name="{{ title_field.html_name }}" {% if title_field.required %} required {% endif %}>
+                        <label for="{{ title_field.auto_id }}">{{ title_field.label }}</label>
                     </div>
-                    {% form_field form 'currency' as currency_field %}
+                    {% form_field form 'start_date' as start_field %}
+                    <div class="input-field col s3">
+                        <input placeholder="Start date dd/mm/yyyy" id="{{ start_field.auto_id }}" type="text" class="validate" value="{{ start_field.initial }}"
+                               name="{{ start_field.html_name }}" {% if start_field.required %} required {% endif %}>
+                        <label for="{{ start_field.auto_id }}">{{ start_field.label }}</label>
+                    </div>
+                    {% form_field form 'end_date' as end_field %}
+                    <div class="input-field col s3">
+                        <input placeholder="End date dd/mm/yyyy" id="{{ end_field.auto_id }}" type="text" class="validate" value="{{ end_field.initial }}"
+                               name="{{ end_field.html_name }}" {% if end_field.required %} required {% endif %}>
+                        <label for="{{ end_field.auto_id }}">{{ end_field.label }}</label>
+                    </div>
+                    {% form_field form 'base_currency' as base_field %}
                     <div class="input-field col s2">
-                        <select name="{{ currency_field.html_name }}" id="{{ currency_field.auto_id }}_{{ forloop.counter0 }}"
-                                {% if currency_field.required %} required {% endif %}>
-                            {% for choice in currency_field.field.choices %}
-                            <option value="{{ choice.0 }}" {% if currency_field.initial == choice.0 %} selected {% endif %}}>{{ choice.1 }}</option>
+                        <select name="{{ base_field.html_name }}" id="{{ base_field.auto_id }}"
+                                {% if base_field.required %} required {% endif %}>
+                            {% for choice in base_field.field.choices %}
+                            <option value="{{ choice.0 }}" {% if base_field.initial == choice.0 %} selected {% endif %}}>{{ choice.1 }}</option>
                             {% endfor %}
                         </select>
-                        <label for="{{ currency_field.auto_id }}_{{ forloop.counter0 }}">{{ currency_field.label }}</label>
-                    </div>
-                    {% form_field form 'amount' as amount_field %}
-                    <div class="input-field col s2">
-                        <input placeholder="Cost" id="{{ amount_field.auto_id }}_{{ forloop.counter0 }}" type="number" class="validate" value="{{ amount_field.initial }}"
-                               name="{{ amount_field.html_name }}" {% if amount_field.required %} required {% endif %} step="0.01">
-                        <label for="{{ amount_field.auto_id }}_{{ forloop.counter0 }}">{{ amount_field.label }}</label>
-                    </div>
-                    {% form_field form 'units' as units_field %}
-                    <div class="input-field col s1">
-                        <input placeholder="Units" id="{{ units_field.auto_id }}_{{ forloop.counter0 }}" type="number" class="validate" value="{{ units_field.initial }}"
-                               name="{{ units_field.html_name }}" {% if units_field.required %} required {% endif %} step="0.1">
-                        <label for="{{ units_field.auto_id }}_{{ forloop.counter0 }}">{{ units_field.label }}</label>
-                    </div>
-                    <div class="input-field col s2">
-                        <input id="id_total_{{ forloop.counter0 }}_{{ forloop.counter0 }}" type="number" disabled value="{{ expense.total_code }}">
-                        <label for="id_total_{{ forloop.counter0 }}_{{ forloop.counter0 }}">Currency total</label>
-                    </div>
-                    <div class="input-field col s2">
-                        <input id="id_base_total_{{ forloop.counter0 }}_{{ forloop.counter0 }}" type="number" disabled value="{{ expense.total_base }}">
-                        <label for="id_base_total_{{ forloop.counter0 }}_{{ forloop.counter0 }}">Base total</label>
-                    </div>
-                    <div class="input-field col s1">
-                        <input id="expense_submit_{{ forloop.counter0 }}" type="submit" value="Save"
-                               class="waves-effect waves-light btn-small">
+                        <label for="{{ base_field.auto_id }}">{{ base_field.label }}</label>
                     </div>
                 </div>
-            {% endwith %}
-        </form>
+                <div class="row">
+                    {% form_field form 'description' as desc_field %}
+                    <div class="input-field col s11">
+                        <input placeholder="Budget description" id="{{ desc_field.auto_id }}" type="text" class="validate" value="{{ desc_field.initial }}"
+                               name="{{ desc_field.html_name }}" {% if desc_field.required %} required {% endif %}>
+                        <label for="{{ desc_field.auto_id }}">{{ desc_field.label }}</label>
+                    </div>
+                    <div class="input-field col s1">
+                        <input id="budget_submit" type="submit" value="Save"
+                               class="waves-effect waves-light btn-small">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        {% if not is_new %}
+        <div class="row">
+            {% form_field form 'base_currency' as base_field %}
+            <h5>Budget Total: <span class="budget-total">{{ total }} {{ base_field.initial }}</span></h5>
+        </div>
+        {% endif %}
+
+        {% for expense in expenses %}
+        <div class="row">
+            <form class="col s12" action="{{ expense.submit_url }}" method="post">
+                {% csrf_token %}
+                {% with form=expense.form %}
+                    {% include "snippet/form_errors.html" %}
+
+                    <div class="row">
+                        {% form_field form 'name' as name_field %}
+                        <div class="input-field col s2">
+                            <input placeholder="Expense" id="{{ name_field.auto_id }}_{{ forloop.counter0 }}" type="text" class="validate" value="{{ name_field.initial }}"
+                                   name="{{ name_field.html_name }}" {% if name_field.required %} required {% endif %}>
+                            <label for="{{ name_field.auto_id }}_{{ forloop.counter0 }}">{{ name_field.label }}</label>
+                        </div>
+                        {% form_field form 'currency' as currency_field %}
+                        <div class="input-field col s2">
+                            <select name="{{ currency_field.html_name }}" id="{{ currency_field.auto_id }}_{{ forloop.counter0 }}"
+                                    {% if currency_field.required %} required {% endif %}>
+                                {% for choice in currency_field.field.choices %}
+                                <option value="{{ choice.0 }}" {% if currency_field.initial == choice.0 %} selected {% endif %}}>{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="{{ currency_field.auto_id }}_{{ forloop.counter0 }}">{{ currency_field.label }}</label>
+                        </div>
+                        {% form_field form 'amount' as amount_field %}
+                        <div class="input-field col s2">
+                            <input placeholder="Cost" id="{{ amount_field.auto_id }}_{{ forloop.counter0 }}" type="number" class="validate" value="{{ amount_field.initial }}"
+                                   name="{{ amount_field.html_name }}" {% if amount_field.required %} required {% endif %} step="0.01">
+                            <label for="{{ amount_field.auto_id }}_{{ forloop.counter0 }}">{{ amount_field.label }}</label>
+                        </div>
+                        {% form_field form 'units' as units_field %}
+                        <div class="input-field col s1">
+                            <input placeholder="Units" id="{{ units_field.auto_id }}_{{ forloop.counter0 }}" type="number" class="validate" value="{{ units_field.initial }}"
+                                   name="{{ units_field.html_name }}" {% if units_field.required %} required {% endif %} step="0.1">
+                            <label for="{{ units_field.auto_id }}_{{ forloop.counter0 }}">{{ units_field.label }}</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input id="id_total_{{ forloop.counter0 }}_{{ forloop.counter0 }}" type="number" disabled value="{{ expense.total_code }}">
+                            <label for="id_total_{{ forloop.counter0 }}_{{ forloop.counter0 }}">Currency total</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input id="id_base_total_{{ forloop.counter0 }}_{{ forloop.counter0 }}" type="number" disabled value="{{ expense.total_base }}">
+                            <label for="id_base_total_{{ forloop.counter0 }}_{{ forloop.counter0 }}">Base total</label>
+                        </div>
+                        <div class="input-field col s1">
+                            <input id="expense_submit_{{ forloop.counter0 }}" type="submit" value="Save"
+                                   class="waves-effect waves-light btn-small">
+                        </div>
+                    </div>
+                {% endwith %}
+            </form>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 
 {% if budget_id %}
