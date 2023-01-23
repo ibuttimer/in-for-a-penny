@@ -41,9 +41,11 @@ from .constants import (
     THIS_APP, BUDGETS_URL, BUDGETS_ROUTE_NAME,
     BUDGET_NEW_URL, BUDGET_NEW_ROUTE_NAME,
     BUDGET_ITEMS_URL, BUDGET_ITEMS_ROUTE_NAME,
-    BUDGET_BY_ID_URL, BUDGET_BY_ID_ROUTE_NAME
+    BUDGET_BY_ID_URL, BUDGET_BY_ID_ROUTE_NAME,
+    BUDGET_ITEM_BY_ID_URL, BUDGET_ITEM_BY_ID_ROUTE_NAME,
+    BUDGET_ITEM_NEW_URL, BUDGET_ITEM_NEW_ROUTE_NAME
 )
-from .views import BudgetCreate, BudgetList, BudgetById
+from .views import BudgetCreate, BudgetList, BudgetById, BudgetItemById, BudgetItemCreate
 
 # https://docs.djangoproject.com/en/4.1/topics/http/urls/#url-namespaces-and-included-urlconfs
 app_name = THIS_APP
@@ -51,6 +53,8 @@ app_name = THIS_APP
 
 urlpatterns = [
     # path(BUDGET_ITEMS_URL, get_links, name=BUDGET_ITEMS_ROUTE_NAME),
+    path(BUDGET_ITEM_NEW_URL, BudgetItemCreate.as_view(), name=BUDGET_ITEM_NEW_ROUTE_NAME),
+    path(BUDGET_ITEM_BY_ID_URL, BudgetItemById.as_view(), name=BUDGET_ITEM_BY_ID_ROUTE_NAME),
     path(BUDGET_BY_ID_URL, BudgetById.as_view(), name=BUDGET_BY_ID_ROUTE_NAME),
     path(BUDGETS_URL, BudgetList.as_view(), name=BUDGETS_ROUTE_NAME),
     path(BUDGET_NEW_URL, BudgetCreate.as_view(), name=BUDGET_NEW_ROUTE_NAME),

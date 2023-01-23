@@ -47,6 +47,7 @@ class BudgetItem(models.Model):
     AMOUNT_FIELD = 'amount'
     UNITS_FIELD = 'units'
 
+    UNITS_DECIMAL_PLACES = 1
 
     BUDGET_ITEM_ATTRIB_NAME_MAX_LEN: int = 100
     BUDGET_ITEM_ATTRIB_CURRENCY_CODE_MAX_LEN = \
@@ -62,7 +63,7 @@ class BudgetItem(models.Model):
         max_length=BUDGET_ITEM_ATTRIB_CURRENCY_CODE_MAX_LEN, blank=False)
 
     amount = models.DecimalField(
-        max_digits=19, decimal_places=6, default=1.0)
+        max_digits=19, decimal_places=6, default=0.0)
 
     units = models.DecimalField(
-        max_digits=19, decimal_places=6, default=1.0)
+        max_digits=19, decimal_places=UNITS_DECIMAL_PLACES, default=1.0)

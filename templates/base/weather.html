@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{{app_name}}{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="row center-align">
+    <div class="col s12 m6">
+      <div class="card darken-1">
+        <div class="card-content">
+          <span class="card-title">Check Weather</span>
+          <div class="api">
+        </div>
+        <section class="top-banner">
+            <div class="container">
+                <form>
+                    <input type="text" placeholder="Search for a city" autofocus>
+                    <button class="btn" type="submit">SUBMIT</button>
+                    <span class="msg"></span>
+                </form>
+            </div>
+        </section>
+        <section class="ajax-section">
+            <div class="container">
+                <ul class="cities"></ul>
+            </div>
+        </section>
+        </div>
+        <div class="card-action">
+            <section class="ajax-section">
+                <div class="container">
+                    <ul class="cities"></ul>
+                </div>
+            </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script type="text/javascript" src="{% static 'js/weather.js' %}"></script>
+
+{% endblock %}

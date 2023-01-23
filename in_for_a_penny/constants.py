@@ -36,10 +36,12 @@ BUDGET_URL = "budget/"
 ABOUT_URL = "about/"
 CONVERT_URL = "convert/"
 LINKS_URL = "links/"
+WEATHER_URL = "weather/"
 
 ABOUT_ROUTE_NAME = "about"
 CONVERT_ROUTE_NAME = "convert"
 LINKS_ROUTE_NAME = "links"
+WEATHER_ROUTE_NAME = "weather"
 
 MIN_PASSWORD_LEN = 8
 
