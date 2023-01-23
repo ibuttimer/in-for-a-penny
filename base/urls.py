@@ -40,10 +40,10 @@ from django.urls import path
 from in_for_a_penny.constants import (
     LANDING_ROUTE_NAME, HOME_URL, HOME_ROUTE_NAME,
     ABOUT_URL, ABOUT_ROUTE_NAME, LINKS_URL, LINKS_ROUTE_NAME,
-    CONVERT_URL, CONVERT_ROUTE_NAME,
+    CONVERT_URL, CONVERT_ROUTE_NAME, WEATHER_URL, WEATHER_ROUTE_NAME,
 )
 from .constants import THIS_APP
-from .views import get_landing, get_home, get_about, get_links, get_convert
+from .views import get_landing, get_home, get_about, get_links, get_convert, get_weather
 
 
 # https://docs.djangoproject.com/en/4.1/topics/http/urls/#url-namespaces-and-included-urlconfs
@@ -54,6 +54,7 @@ urlpatterns = [
     path(LINKS_URL, get_links, name=LINKS_ROUTE_NAME),
     path(ABOUT_URL, get_about, name=ABOUT_ROUTE_NAME),
     path(CONVERT_URL, get_convert, name=CONVERT_ROUTE_NAME),
+    path(WEATHER_URL, get_weather, name=WEATHER_ROUTE_NAME),
     path('', get_landing, name=LANDING_ROUTE_NAME),
     path('', get_landing, name=HOME_ROUTE_NAME),
 ]

@@ -61,3 +61,14 @@ def get_convert(request: HttpRequest) -> HttpResponse:
     return render(request, f'{THIS_APP}/convert.html',
                   context={
                   })
+
+
+def get_weather(request: HttpRequest) -> HttpResponse:
+    """
+    Render home page
+    :param request: request
+    :return: response
+    """
+    return render(request, f'{THIS_APP}/weather.html',
+                  context={
+                  })
