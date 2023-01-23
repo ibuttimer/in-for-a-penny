@@ -18,3 +18,7 @@ footer {
     overflow: hidden;
     position: relative;
 }
+
+.logo-name {
+    font-size: 40px;
+}
