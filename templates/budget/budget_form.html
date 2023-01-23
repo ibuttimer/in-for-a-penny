@@ -22,7 +22,8 @@
                 </a>
             </div>
             <div class="col s2 offset-s6">
-                <a href="{% url 'budget:budgets' %}" class="waves-effect waves-light btn red darken-3">
+                <a href="{% url 'budget:budgets' %}" class="waves-effect waves-light btn red darken-3"
+                    id="id_delete_budget">
                     Delete
                 </a>
             </div>
@@ -142,6 +143,28 @@
     </div>
     {% endfor %}
 </div>
+
+{% if budget_id %}
+<script>
+    const deleteBtnSelector = document.querySelector("#id_delete_budget");
+
+    deleteBtnSelector.addEventListener("click", deleteBudget);
+
+    function deleteBudget(event) {
+        fetch("{% url 'budget:budget_by_id' budget_id %}", {
+            method: 'delete',
+            headers: {
+                'X-CSRFTOKEN': "{{ csrf_token }}"
+            },
+        }).then(result => {
+            document.location.href = "{% url 'budget:budgets' %}";
+        });
+
+        event.preventDefault();
+        event.stopPropagation();
+    }
+</script>
+{% endif %}
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

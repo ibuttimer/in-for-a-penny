@@ -26,3 +26,4 @@ EXPENSES_CTX = 'expenses'
 TOTAL_CTX = 'total'
 BASE_CURRENCY_CTX = 'base_currency'
 IS_NEW_CTX = 'is_new'
+BUDGET_ID_CTX = "budget_id"

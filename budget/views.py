@@ -5,7 +5,7 @@ from typing import List
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View, generic
@@ -13,7 +13,7 @@ from django.views import View, generic
 from .constants import (
     THIS_APP, FORM_CTX, BUDGET_BY_ID_ROUTE_NAME, SUBMIT_URL_CTX,
     BUDGET_NEW_ROUTE_NAME, BUDGETS_ROUTE_NAME, EXPENSES_CTX, BUDGET_ITEM_BY_ID_ROUTE_NAME, BUDGET_ITEM_NEW_ROUTE_NAME,
-    TOTAL_CTX, BASE_CURRENCY_CTX, IS_NEW_CTX
+    TOTAL_CTX, BASE_CURRENCY_CTX, IS_NEW_CTX, BUDGET_ID_CTX
 )
 from .forms import BudgetForm, BudgetItemForm
 from .models import Budget, BudgetItem
@@ -65,6 +65,7 @@ class BudgetCreate(
             TOTAL_CTX: total,
             BASE_CURRENCY_CTX: form.instance.base_currency,
             IS_NEW_CTX: is_new,
+            BUDGET_ID_CTX: form.instance.id
         })
 
     def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
@@ -273,6 +274,30 @@ class BudgetById(#LoginRequiredMixin,
 
         return redirect(f'{THIS_APP}:{BUDGETS_ROUTE_NAME}') if success else \
             BudgetCreate.render_form(request, form, self.url(budget))
+
+    def delete(self, request: HttpRequest,
+             pk: int, *args, **kwargs) -> HttpResponse:
+        """
+        DELETE method to update Budget
+        :param request: http request
+        :param pk: id of budget to get
+        :param args: additional arbitrary arguments
+        :param kwargs: additional keyword arguments
+        :return: http response
+        """
+
+        budget = get_object_or_404(Budget, id=pk)
+
+        # perform own budget check
+        # own_content_check(request, budget)
+
+        count, _ = budget.delete()
+
+        return JsonResponse({
+            'count': count
+        })
+            # redirect(f'{THIS_APP}:{BUDGETS_ROUTE_NAME}')
+
 
     @staticmethod
     def url(budget: Budget) -> str:
