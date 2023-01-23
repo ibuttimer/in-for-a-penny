@@ -93,8 +93,6 @@ The development environment requires:
 
 | Artifact                                 | Download and installation instructions               |
 |------------------------------------------|------------------------------------------------------|
-| [Node.js](https://nodejs.org/)           | https://nodejs.org/en/download/                      |
-| [npm](https://www.npmjs.com/)            | Included with Node.js installation                   |
 | [git](https://git-scm.com/)              | https://git-scm.com/downloads                        |
 | [Python](https://www.python.org/)        | https://www.python.org/downloads/                    |
 | [Django](https://www.djangoproject.com/) | https://www.djangoproject.com/download/              |
@@ -138,7 +136,6 @@ There are two requirements files:
 | SITE_ID             | Id (primary key) of site in the `django_site` table of the database. See [Configure authentication](#configure-authentication).                                                                                                                                                                 |
 | HEROKU_HOSTNAME     | [Hostname](https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts) of application on Heroku.<br>__Note:__ To specify multiple hosts, use a comma-separated list with no spaces.<br>__Note:__ Set to `localhost,127.0.0.1` in local development mode                                  |
 | REMOTE_DATABASE_URL | Url of remote PostgreSQL database resource. For an [ElephantSQL](https://www.elephantsql.com/) database this is available from `URL` in the instance details.<br>__Note:__ Only required for admin purposes, see database configuration under [Cloud-based Deployment](#cloud-based-deployment) |
-| NPM_BIN_PATH        | Path to [npm](https://www.npmjs.com/) from local installation of [Node.js](https://nodejs.org/)                                                                                                                                                                                                 |
 
 #### Environment variables
 Set environment variables corresponding to the keys in [Table 1: Configuration settings](#table-1-configuration-settings).
@@ -165,11 +162,6 @@ the following steps must be performed, from a terminal window, in the `in-for-a-
 $ python manage.py migrate
 ````
 
-#### Initialise tailwindcss
-````shell
-$ python manage.py tailwind install
-````
-
 #### Create a superuser
 Enter `Username`, `Password` and optionally `Email address`.
 ````shell
@@ -194,9 +186,6 @@ From [django-allauth Post-Installation](https://django-allauth.readthedocs.io/en
 In order to run the development server, run the following commands from the `in-for-a-penny` folder:
 
 ````shell
-# start tailwindcss
-$ python manage.py tailwind start
-
 # start server
 $ python manage.py runserver
 ````
