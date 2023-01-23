@@ -23,34 +23,50 @@
     * [Acknowledgements](#acknowledgements)
 
 ## User Experience
-<< what paradigms of user experience did you consider, and cater to? >>
+We considered enhanced quality of the experience when holidays and trips have been well thought out and planned.
+A good budget planning tool is a necessity. The Dara Planner tool was conceived to meet this requirement.
 
 ### User stories
-<< user stories here - don't be stingy on this 😅 you can even put down your expectations as a developer in this forum >>
+
+Epics were logged in the project issues under [epics](https://github.com/ibuttimer/in-for-a-penny/issues?q=is%3Aissue+label%3Aepic)
+User stores were logged in the project issues under [user stories](https://github.com/ibuttimer/in-for-a-penny/issues?q=label%3A%22user+story%22)
 
 ## Technology:
 
-<< Detail your techstack here, and why you chose it. >>
+- Django
+- Materialize
 
-<< list your languages & tools below: >>
+Initially Tailwind CSS was chosen, as the frontend framework, however the implementation proved troublesome and the decision was made to switch to Materialize.
 
-*  << languages >>
-    * << list the langauge & reason for using it >>
+* Python
+    * Backend coding
+* Javascript, HTML, CSS
+    * Frontend coding
 
-* << tools >>
-    * << list the tool & reason for using it >>
+* Assorted IDEs
+    * Intellij IDEA, Gitpod, GitLabs, VSCode
 
 ## Initial MVP idea:
 
-Detail plans and scope of project here....
-
-<< consider talking about how you planned as a team here and what tools were implemented >>
+The team selected the idea of a budget planning tool from among a number of ideas discussed.
+- [planning.md](doc/planning/planning.md)
+- [meeting-log.md](doc/planning/meeting-log.md)
 
 ### Actual idea & content:
 
-<< how does you final product/project match up to your initial mvp plans >>
+The final project meets the requirement of providing a budgeting tool with support for multiple currencies.
 
-<< detail idea / features / functionality here >>
+User authentication and authorisation was included in the initial MVP, and was functional but has been excluded from the final product as
+there was insufficient time to properly style the register and login templates.
+
+The application provides the following functionality
+- Budget planner with the following features
+  - Budget base currency
+  - Expense entries with individual currency settings
+  - Budget total calculated in base currency
+  - Budget creation/view/update/delete
+- Currency convertor allowing conversion of amount between two currencies
+- Useful travel link page
 
 ## Design
 
@@ -70,23 +86,24 @@ Detail plans and scope of project here....
 <details>
 <summary>- Mobile Wireframes:</summary>
 
-<< put all your mobile wireframes here... >>
 
-<< consider adding some notes to detail the planned components or functionality >>
+|                                                |                                            |                                              |                                                      |                                                      |
+|------------------------------------------------|--------------------------------------------|----------------------------------------------|------------------------------------------------------|------------------------------------------------------|
+| ![](Wireframes/Phone%20-%20Landing%20page.png) | ![](Wireframes/Phone%20-%20About%20Us.png) | ![](Wireframes/Phone%20-The%20converter.png) | ![](Wireframes/Phone%20-%20The%20Dara%20Planner.png) | ![](Wireframes/Phone%20-%20UseFul%20Links.png)       |
 
 </details>
 
 <details>
 <summary>- Desktop Wireframes:</summary>
 
-<< put all your mobile wireframes here... >>
-
-<< consider adding some notes to detail the planned components or functionality >>
+|                                    |                                    |                                     |                                          |
+|------------------------------------|------------------------------------|-------------------------------------|------------------------------------------|
+| ![](Wireframes/About%20us.png)     | ![](Wireframes/Landing%20page.png) | ![](Wireframes/The%20converter.png) | ![](Wireframes/The%20Dara%20Planner.png) |
+| ![](Wireframes/Useful%20Links.png) |                                    |                                     |                                          |
 
 </details>
 
 ## Deployment
-<< detail deployment methods used here, and any extraneous circumstances to run the project locally >>
 ### Development and Local Deployment
 #### Environment
 The development environment requires:
@@ -291,18 +308,20 @@ The live website is available at [https://dara-planner.herokuapp.com/](https://d
 
 
 ## Testing
-<< detail testing logs here - any known bugs, and squashed bugs 🐛🐛 >>
+Manual testing was performed an all pages.
 
 ## Credits
+- Currency conversion rates courtesy of https://api.exchangerate-api.com
 
 ### Code
-<< any and all code that isn't yours...must go here >>
+
 
 ### Content
-<< any content, such as facts/references/text that isn't yours...must go here >>
 
 ### Media
-<< you may have already done this above in the Imagery section, but just in case, please attribute Media acquisition here >>
+- [Tree image](static/img/oaktree.jpg) generated by [OpenAI](https://openai.com/)
+- [pic1.png](static%2Fimg%2Fpic1.png) courtesy of https://www.vecteezy.com/ 
+- Images on Links page are direct links to content from the respective sites
 
 ### Acknowledgements
-<< personal thanks and praise 🙌 >>
+Thank you to everyone for the effort and time contributed.
