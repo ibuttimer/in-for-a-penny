@@ -1,15 +1,4 @@
-.dock
-{position:relative;height:50px;text-align:center}
-
-.dock-container
-{position:absolute;height:50px;background-color:rgb(55, 55, 55);padding-left:-200px;}
-
-a.dock-item
-{display:block;width:40px;color:#000;position:absolute;top:0;text-align:center;text-decoration:none;font:bold 12px Arial,Helvetica,sans-serif;}
-
-.dock-item img
-{border:none;text-align:center;width:100%;}
-
-.dock-item span
-{display:none;padding-left:20px;}
-
+.front_pic
+{
+margin-top: 200px;
+}
