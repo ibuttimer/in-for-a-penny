@@ -23,3 +23,4 @@ BUDGET_ITEM_BY_ID_ROUTE_NAME = "budget_item_by_id"
 FORM_CTX = 'form'
 SUBMIT_URL_CTX = 'submit_url'
 EXPENSES_CTX = 'expenses'
+TOTAL_CTX = 'total'

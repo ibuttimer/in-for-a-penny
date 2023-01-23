@@ -11,7 +11,7 @@ from .models import Budget, BudgetItem
 
 def get_currency_choices():
     choices = [
-        ("", "Select One …")
+        ("", "Choose")
     ]
     choices.extend([
         (code, code) for code in list(
@@ -96,3 +96,11 @@ class BudgetItemForm(forms.ModelForm):
             BudgetItem.NAME_FIELD, BudgetItem.CURRENCY_FIELD,
             BudgetItem.AMOUNT_FIELD, BudgetItem.UNITS_FIELD
         ]
+
+    @staticmethod
+    def quantise_amount(amount: Decimal):
+        return amount.quantize(BudgetItemForm.AMOUNT_EXP)
+
+    @staticmethod
+    def quantise_units(units: Decimal):
+        return units.quantize(BudgetItemForm.UNITS_EXP)
