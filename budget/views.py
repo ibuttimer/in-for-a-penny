@@ -49,7 +49,7 @@ class BudgetCreate(
         for field in [Budget.START_DATE_FIELD, Budget.END_DATE_FIELD]:
             date = form.initial[field] if field in form.initial else \
                 datetime.now()
-            form.initial[field] = date.strftime(BudgetForm.DEFAULT_FORMATS[0])
+            form.initial[field] = date.strftime(BudgetForm.DEFAULT_FORMATS[0]) if isinstance(date, datetime) else date
         return form
 
     @staticmethod
@@ -59,7 +59,7 @@ class BudgetCreate(
                     total: Decimal = None,
                     is_new: bool = False) -> HttpResponse:
         return render(request, f'{THIS_APP}/budget_form.html', context={
-            FORM_CTX: form,
+            FORM_CTX: BudgetCreate.init_form(form),
             SUBMIT_URL_CTX: submit_url,
             EXPENSES_CTX: expenses,
             TOTAL_CTX: total,
@@ -92,7 +92,7 @@ class BudgetCreate(
             success = False
 
         return redirect(f'{THIS_APP}:{BUDGETS_ROUTE_NAME}') if success else \
-            self.render_form(request, form)
+            self.render_form(request, form, is_new=True)
 
 
 class BudgetItemCreate(
@@ -103,7 +103,7 @@ class BudgetItemCreate(
     """
 
     @staticmethod
-    def render_form(request: HttpRequest, form: BudgetForm,
+    def render_form(request: HttpRequest, form: BudgetItemForm,
                     submit_url: str = None,
                     expenses: List[BudgetItemForm] = None) -> HttpResponse:
         return render(request, f'{THIS_APP}/budget_form.html', context={
