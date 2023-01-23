@@ -9,6 +9,29 @@
 {% block content %}
 <div class="container">
     <div class="row">
+        <div class="col s12">
+            <div class="col s2">
+                <a href="{% url 'budget:budgets' %}" class="waves-effect waves-light btn deep-orange lighten-1">
+                    Budgets
+                </a>
+            </div>
+            {% if not is_new %}
+            <div class="col s2">
+                <a href="{% url 'budget:budget_new' %}" class="waves-effect waves-light btn green accent-4">
+                    New Budget
+                </a>
+            </div>
+            <div class="col s2 offset-s6">
+                <a href="{% url 'budget:budgets' %}" class="waves-effect waves-light btn red darken-3"
+                    id="id_delete_budget">
+                    Delete
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
         <form class="col s12" action="{{ submit_url }}" method="post">
             {% csrf_token %}
             {% include "snippet/form_errors.html" %}
@@ -58,6 +81,13 @@
             </div>
         </form>
     </div>
+
+    {% if not is_new %}
+    <div class="row">
+        {% form_field form 'base_currency' as base_field %}
+        <h5>Budget Total: <span class="budget-total">{{ total }} {{ base_field.initial }}</span></h5>
+    </div>
+    {% endif %}
 
     {% for expense in expenses %}
     <div class="row">
@@ -113,6 +143,28 @@
     </div>
     {% endfor %}
 </div>
+
+{% if budget_id %}
+<script>
+    const deleteBtnSelector = document.querySelector("#id_delete_budget");
+
+    deleteBtnSelector.addEventListener("click", deleteBudget);
+
+    function deleteBudget(event) {
+        fetch("{% url 'budget:budget_by_id' budget_id %}", {
+            method: 'delete',
+            headers: {
+                'X-CSRFTOKEN': "{{ csrf_token }}"
+            },
+        }).then(result => {
+            document.location.href = "{% url 'budget:budgets' %}";
+        });
+
+        event.preventDefault();
+        event.stopPropagation();
+    }
+</script>
+{% endif %}
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

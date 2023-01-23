@@ -35,7 +35,7 @@ class Budget(models.Model):
         _('base currency'), max_length=BUDGET_ATTRIB_CURRENCY_CODE_MAX_LEN,
         blank=False)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class BudgetItem(models.Model):
