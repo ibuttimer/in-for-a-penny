@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.forms import DateField, DecimalField
 from django.utils.translation import gettext_lazy as _
 
@@ -10,10 +11,12 @@ from .models import Budget, BudgetItem
 
 def get_currency_choices():
     choices = [
-        ("", "Select One …")
+        ("", "Choose")
     ]
     choices.extend([
-        (code, code) for code in list(ccy.all())
+        (code, code) for code in list(
+            map(lambda code: code.upper(), ccy.all())
+        )
     ])
     return choices
 
@@ -66,6 +69,12 @@ class BudgetItemForm(forms.ModelForm):
     Form to create/update a budget item.
     """
 
+    # e.g. Decimal(10) ** -2       # same as Decimal('0.01')
+    AMOUNT_EXP = Decimal(10) ** -2
+    UNITS_EXP = Decimal(10) ** -BudgetItem.UNITS_DECIMAL_PLACES
+
+    DEFAULT_UNITS = Decimal('1').quantize(UNITS_EXP)
+
     name = forms.CharField(
         label=_("Name"),
         max_length=BudgetItem.BUDGET_ITEM_ATTRIB_NAME_MAX_LEN,
@@ -80,3 +89,18 @@ class BudgetItemForm(forms.ModelForm):
     amount = DecimalField(decimal_places=2)
 
     units = DecimalField(decimal_places=1)
+
+    class Meta:
+        model = BudgetItem
+        fields = [
+            BudgetItem.NAME_FIELD, BudgetItem.CURRENCY_FIELD,
+            BudgetItem.AMOUNT_FIELD, BudgetItem.UNITS_FIELD
+        ]
+
+    @staticmethod
+    def quantise_amount(amount: Decimal):
+        return amount.quantize(BudgetItemForm.AMOUNT_EXP)
+
+    @staticmethod
+    def quantise_units(units: Decimal):
+        return units.quantize(BudgetItemForm.UNITS_EXP)
