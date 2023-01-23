@@ -76,7 +76,8 @@ class BudgetCreate(
 
         if form.is_valid():
             # save new object
-            form.instance.user = request.user
+
+            # form.instance.user = request.user
 
             form.save()
             # django autocommits changes
