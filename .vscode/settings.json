@@ -23,5 +23,8 @@
    "files.autoSave": "off",
    "workbench.colorTheme": "Bearded Theme Vivid Black",
    "terminal.integrated.gpuAcceleration": "canvas",
-   "editor.defaultFormatter": "HookyQR.beautify"
+   "editor.defaultFormatter": "HookyQR.beautify",
+   "githubPullRequests.ignoredPullRequestBranches": [
+      "main"
+   ]
 }
