@@ -5,7 +5,7 @@ from typing import List
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View, generic
@@ -13,7 +13,7 @@ from django.views import View, generic
 from .constants import (
     THIS_APP, FORM_CTX, BUDGET_BY_ID_ROUTE_NAME, SUBMIT_URL_CTX,
     BUDGET_NEW_ROUTE_NAME, BUDGETS_ROUTE_NAME, EXPENSES_CTX, BUDGET_ITEM_BY_ID_ROUTE_NAME, BUDGET_ITEM_NEW_ROUTE_NAME,
-    TOTAL_CTX
+    TOTAL_CTX, BASE_CURRENCY_CTX, IS_NEW_CTX, BUDGET_ID_CTX
 )
 from .forms import BudgetForm, BudgetItemForm
 from .models import Budget, BudgetItem
@@ -37,7 +37,8 @@ class BudgetCreate(
         """
         submit_url = reverse(f'{THIS_APP}:{BUDGET_NEW_ROUTE_NAME}')
         return self.render_form(request,
-                                self.init_form(BudgetForm()), submit_url)
+                                self.init_form(BudgetForm()), submit_url,
+                                is_new=True)
 
     @staticmethod
     def init_form(form: BudgetForm):
@@ -55,12 +56,16 @@ class BudgetCreate(
     def render_form(request: HttpRequest, form: BudgetForm,
                     submit_url: str = None,
                     expenses: List[BudgetItemForm] = None,
-                    total: Decimal = None) -> HttpResponse:
+                    total: Decimal = None,
+                    is_new: bool = False) -> HttpResponse:
         return render(request, f'{THIS_APP}/budget_form.html', context={
             FORM_CTX: form,
             SUBMIT_URL_CTX: submit_url,
             EXPENSES_CTX: expenses,
-            TOTAL_CTX: total
+            TOTAL_CTX: total,
+            BASE_CURRENCY_CTX: form.instance.base_currency,
+            IS_NEW_CTX: is_new,
+            BUDGET_ID_CTX: form.instance.id
         })
 
     def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
@@ -76,7 +81,8 @@ class BudgetCreate(
 
         if form.is_valid():
             # save new object
-            form.instance.user = request.user
+
+            # form.instance.user = request.user
 
             form.save()
             # django autocommits changes
@@ -196,6 +202,7 @@ class BudgetById(#LoginRequiredMixin,
             BudgetForm(instance=budget)
         )
 
+        budget_total = Decimal.from_float(0)
         expenses = []
         for budget_item in list(BudgetItem.objects.filter(**{
             f'{BudgetItem.BUDGET_FIELD}': pk
@@ -212,6 +219,8 @@ class BudgetById(#LoginRequiredMixin,
                 convert_currency(
                     budget_item.currency, raw_amt, budget.base_currency)
             )
+
+            budget_total += total_base
 
             expenses.append(
                 Expense(submit_url=submit_url, form=item_form,
@@ -231,7 +240,8 @@ class BudgetById(#LoginRequiredMixin,
         )
 
         return BudgetCreate.render_form(
-            request, form, submit_url=self.url(budget), expenses=expenses
+            request, form, submit_url=self.url(budget), expenses=expenses,
+            total=budget_total
         )
 
     def post(self, request: HttpRequest,
@@ -264,6 +274,30 @@ class BudgetById(#LoginRequiredMixin,
 
         return redirect(f'{THIS_APP}:{BUDGETS_ROUTE_NAME}') if success else \
             BudgetCreate.render_form(request, form, self.url(budget))
+
+    def delete(self, request: HttpRequest,
+             pk: int, *args, **kwargs) -> HttpResponse:
+        """
+        DELETE method to update Budget
+        :param request: http request
+        :param pk: id of budget to get
+        :param args: additional arbitrary arguments
+        :param kwargs: additional keyword arguments
+        :return: http response
+        """
+
+        budget = get_object_or_404(Budget, id=pk)
+
+        # perform own budget check
+        # own_content_check(request, budget)
+
+        count, _ = budget.delete()
+
+        return JsonResponse({
+            'count': count
+        })
+            # redirect(f'{THIS_APP}:{BUDGETS_ROUTE_NAME}')
+
 
     @staticmethod
     def url(budget: Budget) -> str:
