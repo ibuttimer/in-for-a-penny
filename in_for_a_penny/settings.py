@@ -57,14 +57,31 @@ DEBUG = env('DEBUG')
 DEVELOPMENT = env('DEVELOPMENT')
 TEST = env('TEST')
 
-if env('DEVELOPMENT'):
+if DEVELOPMENT:
     ALLOWED_HOSTS = ['testserver'] \
         if env('TEST') else ['localhost', '127.0.0.1', '.gitpod.io']
 else:
-    ALLOWED_HOSTS = env.list('HEROKU_HOSTNAME')
-
+    ALLOWED_HOSTS = env.list('HEROKU_HOSTNAME', default=[])
+    # Add Render.com URL to allowed hosts
+    RENDER_EXTERNAL_HOSTNAME = env('RENDER_EXTERNAL_HOSTNAME', default=None)
+    if RENDER_EXTERNAL_HOSTNAME:
+        ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
+
+# Set to 'cloudinary' or 's3' or cloud storage
+STORAGE_PROVIDER = 'default' if DEVELOPMENT else \
+    env('STORAGE_PROVIDER', default='default').lower()
+PROVIDERS = {
+    'default': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+    'cloudinary': 'cloudinary_storage.storage.StaticHashedCloudinaryStorage',
+    's3': 'in_for_a_penny.s3_storage.StaticStorage'
+}
+DEFAULT_STORAGE = {
+    'default': 'django.core.files.storage.FileSystemStorage',
+    'cloudinary': 'cloudinary_storage.storage.MediaCloudinaryStorage',
+    's3': 'in_for_a_penny.s3_storage.PublicMediaStorage'
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -80,13 +97,30 @@ INSTALLED_APPS = [
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',
+]
+if STORAGE_PROVIDER == 'cloudinary':
+    # cloudinary-related storage apps
+    INSTALLED_APPS.extend([
+        # https://pypi.org/project/dj3-cloudinary-storage/
+        # If using for static and/or media files, make sure that cloudinary_storage
+        # is before django.contrib.staticfiles
+        'cloudinary_storage',
+        'django.contrib.staticfiles',
+        'cloudinary',
+    ])
+elif STORAGE_PROVIDER == 's3':
+    # s3-related storage apps
+    INSTALLED_APPS.extend([
+        'django.contrib.staticfiles',
+        'storages',
+    ])
+else:
+    # default storage apps
+    INSTALLED_APPS.extend([
+        'django.contrib.staticfiles',
+    ])
 
-    # https://pypi.org/project/dj3-cloudinary-storage/
-    # If using for static and/or media files, make sure that cloudinary_storage
-    # is before django.contrib.staticfiles
-    'cloudinary_storage',
-    'django.contrib.staticfiles',
-    'cloudinary',
+INSTALLED_APPS.extend([
     # 'tailwind',
     # 'theme',
     # 'django_browser_reload',
@@ -98,7 +132,7 @@ INSTALLED_APPS = [
 
     # needs to be after app with django template overrides
     'django.forms',
-]
+])
 
 #TAILWIND_APP_NAME = 'theme'
 
@@ -240,13 +274,31 @@ USE_TZ = True
 # (unless you use cloudinary_static template tag).
 # !!
 
-# URL to use when referring to static files located in STATIC_ROOT
-STATIC_URL = 'static/'
+if STORAGE_PROVIDER == 's3':
+    # s3-related settings
+    # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
+    # aws settings
+    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+    # ACL default is None which means the file will be private per Amazon’s
+    # default
+    AWS_DEFAULT_ACL = None
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    # s3 static settings
+    AWS_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+    # s3 public media settings
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+else:
+    # URL to use when referring to static files located in STATIC_ROOT
+    STATIC_URL = 'static/'
+    MEDIA_URL = 'media/'
+
 # https://docs.djangoproject.com/en/4.1/ref/settings/#staticfiles-storage
-STATICFILES_STORAGE = \
-    'django.contrib.staticfiles.storage.StaticFilesStorage' \
-    if DEVELOPMENT else \
-    'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+STATICFILES_STORAGE = PROVIDERS[STORAGE_PROVIDER]
 # https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-STATICFILES_DIRS
 # Additional locations the staticfiles app will traverse for collectstatic
 STATICFILES_DIRS = [
@@ -260,15 +312,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-STATIC_ROOT
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = 'media/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-MEDIA_ROOT
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-file-storage
-DEFAULT_FILE_STORAGE = \
-    'django.core.files.storage.FileSystemStorage' \
-    if DEVELOPMENT else \
-    'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = DEFAULT_STORAGE[STORAGE_PROVIDER]
 
 # fixtures
 FIXTURE_DIRS = [
