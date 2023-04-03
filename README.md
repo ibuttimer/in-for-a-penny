@@ -2,25 +2,50 @@
 
 ## Team Name: InForAPenny
 
-[Dara Planner](https://dara-planner.herokuapp.com/)
+[Dara Planner](https://dara-planner.onrender.com)
 
 ## Contents(#contents)
 
-* [User Experience (UX)](#user-experience)
-    * [User Stories](#user-stories)
-* [Technology](#technology)
-* [Design](#design)
-    * [Color Scheme](#color-scheme)
-    * [Typography](#typography)
-    * [Imagery](#imagery)
-    * [Wireframes](#wireframes)
-* [Deployment & Usage](#deployment)
-* [Testing](#testing)
-* [Credits](#credits)
-    * [Code](#code)
-    * [Content](#content)
-    * [Media](#media)
-    * [Acknowledgements](#acknowledgements)
+- [Dara Planner](#dara-planner)
+  - [Team Name: InForAPenny](#team-name-inforapenny)
+  - [Contents(#contents)](#contentscontents)
+  - [User Experience](#user-experience)
+    - [User stories](#user-stories)
+  - [Technology:](#technology)
+  - [Initial MVP idea:](#initial-mvp-idea)
+    - [Actual idea \& content:](#actual-idea--content)
+  - [Design](#design)
+    - [Color Scheme:](#color-scheme)
+    - [Typography:](#typography)
+    - [Imagery:](#imagery)
+    - [Wireframes:](#wireframes)
+  - [Deployment](#deployment)
+    - [Development and Local Deployment](#development-and-local-deployment)
+      - [Environment](#environment)
+      - [Setup](#setup)
+        - [Clone Repository](#clone-repository)
+      - [Virtual Environment](#virtual-environment)
+      - [Python Setup](#python-setup)
+        - [Production versus Development Setup](#production-versus-development-setup)
+          - [Table 1: Configuration settings](#table-1-configuration-settings)
+      - [Environment variables](#environment-variables)
+        - [Secret Key Generation](#secret-key-generation)
+    - [Before first run](#before-first-run)
+      - [Initialise the database](#initialise-the-database)
+      - [Create a superuser](#create-a-superuser)
+      - [Configure authentication](#configure-authentication)
+    - [Run server](#run-server)
+    - [Cloud-based Deployment](#cloud-based-deployment)
+      - [Heroku](#heroku)
+        - [Deployment](#deployment-1)
+      - [Render](#render)
+        - [Deployment](#deployment-2)
+  - [Testing](#testing)
+  - [Credits](#credits)
+    - [Code](#code)
+    - [Content](#content)
+    - [Media](#media)
+    - [Acknowledgements](#acknowledgements)
 
 ## User Experience
 We considered enhanced quality of the experience when holidays and trips have been well thought out and planned.
@@ -140,19 +165,26 @@ There are two requirements files:
 * [requirements-dev.txt](requirements-dev.txt) which installs extra development-only requirements in addition to the production requirements from [requirements.txt](requirements.txt)
 
 ###### Table 1: Configuration settings
-| Key                 | Value                                                                                                                                                                                                                                                                                           |
-|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ENV_FILE            | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                                                                                                                                         |
-| PORT                | Port application is served on; default 8000                                                                                                                                                                                                                                                     |
-| DEBUG               | A boolean that turns on/off debug mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable                                                                                                                                                                                             |
-| DEVELOPMENT         | A boolean that turns on/off development mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable                                                                                                                                                                                       |
-| TEST                | A boolean that turns on/off test mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable. Only valid when development mode is enabled.                                                                                                                                                |
-| SECRET_KEY          | [Secret key](https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation)                                                                                                              |
-| DATABASE_URL        | [Database url](https://docs.djangoproject.com/en/4.1/ref/settings/#databases)                                                                                                                                                                                                                   |
-| CLOUDINARY_URL      | [Cloudinary url](https://pypi.org/project/dj3-cloudinary-storage/)                                                                                                                                                                                                                              |
-| SITE_ID             | Id (primary key) of site in the `django_site` table of the database. See [Configure authentication](#configure-authentication).                                                                                                                                                                 |
-| HEROKU_HOSTNAME     | [Hostname](https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts) of application on Heroku.<br>__Note:__ To specify multiple hosts, use a comma-separated list with no spaces.<br>__Note:__ Set to `localhost,127.0.0.1` in local development mode                                  |
-| REMOTE_DATABASE_URL | Url of remote PostgreSQL database resource. For an [ElephantSQL](https://www.elephantsql.com/) database this is available from `URL` in the instance details.<br>__Note:__ Only required for admin purposes, see database configuration under [Cloud-based Deployment](#cloud-based-deployment) |
+| Key                     | Value                                                                                                                                                                                                                                                                                           |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ENV_FILE                | If using an environment file, specifies the file to use. Defaults to `.env` in the project root folder.                                                                                                                                                                                         |
+| PORT                    | Port application is served on; default 8000                                                                                                                                                                                                                                                     |
+| DEBUG                   | A boolean that turns on/off debug mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable                                                                                                                                                                                             |
+| DEVELOPMENT             | A boolean that turns on/off development mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable                                                                                                                                                                                       |
+| TEST                    | A boolean that turns on/off test mode; set to any of 'true', 'on', 'ok', 'y', 'yes', '1' to enable. Only valid when development mode is enabled.                                                                                                                                                |
+| SECRET_KEY              | [Secret key](https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation. See [Secret Key Generation](#secret-key-generation)                                                                                                              |
+| DATABASE_URL            | [Database url](https://docs.djangoproject.com/en/4.1/ref/settings/#databases)                                                                                                                                                                                                                   |
+| STORAGE_PROVIDER        | Storage provider from which to server static files; set to `cloudinary` ([Cloudinary](https://elements.heroku.com/addons/cloudinary)) or `s3` ([Amazon Simple Storage Service](https://aws.amazon.com/s3/))                                                                                     |
+| SITE_ID                 | Id (primary key) of site in the `django_site` table of the database. See [Configure authentication](#configure-authentication).                                                                                                                                                                 |
+| REMOTE_DATABASE_URL     | Url of remote PostgreSQL database resource. For an [ElephantSQL](https://www.elephantsql.com/) database this is available from `URL` in the instance details.<br>__Note:__ Only required for admin purposes, see database configuration under [Cloud-based Deployment](#cloud-based-deployment) |
+|                         | **Cloudinary-specific**                                                                                                                                                                                                                                                                         |
+| CLOUDINARY_URL          | [Cloudinary url](https://pypi.org/project/dj3-cloudinary-storage/)                                                                                                                                                                                                                              |
+|                         | **Amazon S3-specific**                                                                                                                                                                                                                                                                          |
+| AWS_ACCESS_KEY_ID       | The access key for your AWS account.                                                                                                                                                                                                                                                            |
+| AWS_SECRET_ACCESS_KEY   | The secret key for your AWS account.                                                                                                                                                                                                                                                            |
+| AWS_STORAGE_BUCKET_NAME | AWS S3 bucket name.                                                                                                                                                                                                                                                                             |
+|                         | **Heroku-specific**                                                                                                                                                                                                                                                                             |
+| HEROKU_HOSTNAME         | [Hostname](https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts) of application on Heroku.<br>__Note:__ To specify multiple hosts, use a comma-separated list with no spaces.<br>__Note:__ Set to `localhost,127.0.0.1` in local development mode                                  |
 
 #### Environment variables
 Set environment variables corresponding to the keys in [Table 1: Configuration settings](#table-1-configuration-settings).
@@ -188,7 +220,7 @@ $ python manage.py createsuperuser
 #### Configure authentication
 From [django-allauth Post-Installation](https://django-allauth.readthedocs.io/en/latest/installation.html#post-installation)
 - Add a Site for your domain in the database
-  - Login to `http://&lt;domain&gt;/admin/sites/site/` as the previously created superuser, e.g. http://127.0.0.1:8000/admin/sites/site/
+  - Login to `http://<domain>/admin/sites/site/` as the previously created superuser, e.g. http://127.0.0.1:8000/admin/sites/site/
   - Add a Site for your domain (django.contrib.sites app) or edit the default entry `example.com`.
 
     E.g.
@@ -211,12 +243,11 @@ By default, the server runs on port 8000 on the IP address 127.0.0.1.
 See [runserver](https://docs.djangoproject.com/en/4.1/ref/django-admin/#runserver) for details on passing an IP address and port number explicitly.
 
 ### Cloud-based Deployment
+#### Heroku
 
 The site was deployed on [Heroku](https://www.heroku.com).
 
-
-
-### Deployment
+##### Deployment
 The following steps were followed to deploy the website:
 - Login to Heroku in a browser
 - From the dashboard select `New -> Create new app`
@@ -237,15 +268,15 @@ The following steps were followed to deploy the website:
     1. `heroku/python`
   - Under `Config Vars` add the following environment variables
 
-    | Key                | Value                                                                                                                                                                                       |
-    |--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    | PORT               | 8000                                                                                                                                                                                        |
-    | SECRET_KEY         | [Secret key](https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation                                                               |
-    | HEROKU_HOSTNAME    | [Hostname](https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts) of application on Heroku                                                                                      |
-    | SITE_ID            | Id (primary key) of site in the `django_site` table of the database. See [Configure authentication](#configure-authentication).                                                             |
-    |                    | _The following keys are automatically added when `Resources` are provisioned:_                                                                                                              |
-    | CLOUDINARY_URL     | [Cloudinary url](https://pypi.org/project/dj3-cloudinary-storage/)                                                                                                                          |
-    | DATABASE_URL       | [Database url](https://docs.djangoproject.com/en/4.1/ref/settings/#databases)<br>- [ElephantSQL](https://www.elephantsql.com/) database, copy the `URL` from the instance details page |
+    | Key                | Value                                                                                                                                                                                    |
+    |--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | PORT               | 8000                                                                                                                                                                                     |
+    | SECRET_KEY         | [Secret key](https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation                                                            |
+    | HEROKU_HOSTNAME    | [Hostname](https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts) of application on Heroku                                                                                   |
+    | SITE_ID            | Id (primary key) of site in the `django_site` table of the database. See [Configure authentication](#configure-authentication).                                                          |
+    |                    | _The following keys are automatically added when `Resources` are provisioned:_                                                                                                           |
+    | CLOUDINARY_URL     | [Cloudinary url](https://pypi.org/project/dj3-cloudinary-storage/)                                                                                                                       |
+    | DATABASE_URL       | [Database url](https://docs.djangoproject.com/en/4.1/ref/settings/#databases)<br>- [ElephantSQL](https://www.elephantsql.com/) database, copy the `URL` from the instance details page   |
 
 
 See [Table 1: Configuration settings](#table-1-configuration-settings) for details.
@@ -293,15 +324,78 @@ If any other settings vary from the defaults outlined in [Table 1: Configuration
 - Configure authentication
 
   Follow the same procedure as outlined in [Configure authentication](#configure-authentication) using the
-  Heroku domain as `&lt;domain&gt;`, e.g. `dara-planner.herokuapp.com`
-
-The live website is available at [https://dara-planner.herokuapp.com/](https://dara-planner.herokuapp.com/)
+  Heroku domain as `<domain>`, e.g. `dara-planner.herokuapp.com`
 
 
+#### Render
 
+The site was deployed on [Render](https://www.render.com).
 
+##### Deployment
+The following steps were followed to deploy the website:
+- Login to Render in a browser
+- From the dashboard select `New -> Web Service`
+- Connect to the git repository
+- Set following
+  - `Name`, (e.g. `dara-planner`)
+  - Choose an appropriate region
+  - Select the git branch to deploy
+  - Select `Python 3` runtime,
+  - Set the Build command to `./build.sh`
+  - Set the Start command to `gunicorn in_for_a_penny.wsgi:application`
+  - Select `Create Web Service`
+- To provision the application with a database, such as an [ElephantSQL](https://www.elephantsql.com/) database.
+  - For an [ElephantSQL](https://www.elephantsql.com/) database, follow the `Create a new instance` instructions under the `Getting started` section of the [ElephantSQL documentation](https://www.elephantsql.com/docs/index.html).
+- Create an Amazon S3 bucket using [Storing Django Static and Media Files on Amazon S3](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/) 
+- Under `Environment -> Environment Variables` add the following environment variables
 
+    | Key                     | Value                                                                                                                                                                                                                                                                                                          |
+    |-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | PYTHON_VERSION          | [Python version](https://render.com/docs/python-version)<br>**Note:** At time of writing the [Render Python3 environment](https://render.com/docs/native-environments) does not include the necessary Python headers to compile the `psycopg2` library for Python version 3.10.10, use *Python version 3.9.16* |
 
+  - Under `Environment -> Secret Files` add a file with the name `.env` with the following environment variables
+
+    | Key                     | Value                                                                                                                                                                                  |
+    |-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | SECRET_KEY              | [Secret key](https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-SECRET_KEY) for a particular Django installation                                                          |
+    | SITE_ID                 | Id (primary key) of site in the `django_site` table of the database. See [Configure authentication](#configure-authentication).                                                        |
+    | DATABASE_URL            | [Database url](https://docs.djangoproject.com/en/4.1/ref/settings/#databases)<br>- [ElephantSQL](https://www.elephantsql.com/) database, copy the `URL` from the instance details page |
+    | STORAGE_PROVIDER        | Storage provider from which to server static files; set to `s3` ([Amazon Simple Storage Service](https://aws.amazon.com/s3/))                                                          |
+    |                         | **Amazon S3-specific**                                                                                                                                                                 |
+    | AWS_ACCESS_KEY_ID       | The access key for your AWS account.                                                                                                                                                   |
+    | AWS_SECRET_ACCESS_KEY   | The secret key for your AWS account.                                                                                                                                                   |
+    | AWS_STORAGE_BUCKET_NAME | AWS S3 bucket name.                                                                                                                                                                    |
+
+See [Table 1: Configuration settings](#table-1-configuration-settings) for details.
+
+If any other settings vary from the defaults outlined in [Table 1: Configuration settings](#table-1-configuration-settings) they must be added as well.
+
+- Select the `Manual Deploy` to deploy the application.
+
+- Initialise the database and Create a superuser
+
+  Involves the same procedure as outlined in [Initialise the database](#initialise-the-database) and [Create a superuser](#create-a-superuser)
+  but may be run from the local machine.
+  - From a [Development and Local Deployment](#development-and-local-deployment)
+    - Initialise the database
+      ````shell
+      $ python manage.py migrate --database=remote
+      ````
+    - Create a superuser
+
+      Enter `Username`, `Password` and optionally `Email address`.
+      ````shell
+      $ python manage.py createsuperuser --database=remote
+      ````
+
+    __Note:__ Ensure to specify the `--database=remote` option to apply the change to the database specified by the `REMOTE_DATABASE_URL` environment variable.
+
+- Configure authentication
+
+  Follow the same procedure as outlined in [Configure authentication](#configure-authentication) using the
+  Heroku domain as `<domain>`, e.g. `dara-planner.herokuapp.com`
+
+The live website is available at [https://dara-planner.onrender.com](https://dara-planner.onrender.com)
 
 
 
